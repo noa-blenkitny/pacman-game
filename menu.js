@@ -1,7 +1,6 @@
-let registerBtn = document.querySelector('#registerBtn');
-let loginBtn = document.querySelector('#loginBtn');
-let welocmeDiv = document.querySelector('#welcomeDiv');
-registerBtn.addEventListener('click',()=> 
-{
-    welocmeDiv.display='none'
+let registerBtn1 = document.querySelector('#registerBtn');
+let loginBtn1 = document.querySelector('#loginBtn');
+
+registerBtn1.addEventListener('click', ()=>{
+    paragraph.innertext = "Hh"
 });
