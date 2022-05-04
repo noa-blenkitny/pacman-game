@@ -34,4 +34,9 @@
   }
   #welcomeDiv
   {
+      display: block;
+  }
+  #registerBtn
+  {
+      color: #000;
   }
