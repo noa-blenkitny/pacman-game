@@ -1,0 +1,38 @@
+#menu
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 250px;
+    height: 100%;
+    background: black;
+}
+#content
+{
+    padding-left: 250px;
+}
+#menu ul a{
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    border-top: 1px solid rgba(255,255,255,.1);
+    transition: .4s;
+  }
+  #gameDiv
+  {
+      display: none;
+  }
+  #welcomeDiv
+  {
+      display: block;
+  }
