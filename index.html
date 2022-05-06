@@ -20,12 +20,17 @@
   <body>
     <div id="header"></div>
     <div id="menu">
-      <ul>
-        <li><a href="#">Welcome</a></li>
-        <li><a href="#">Register</a></li>
+      <!-- <ul>
+        <li><a href="#welcomeDiv">Welcome</a></li>
+        <li><a href="#registerDiv">Register</a></li>
         <li><a href="#">Login</a></li>
         <li><a href="#" class="far fa-question-circle">About</a></li>
-      </ul>
+      </ul> -->
+        <button class="tablinks" id= "menuWelcomeBtn">Welcome</button>
+        <button class="tablinks" id= "menuRegisterBtn">Register</button>
+        <button class="tablinks" id="menuLoginBtn">Login</button>
+        <button class="tablinks" onclick="openDiv(event, 'Tokyo')">About</button>
+      
     </div>
     <div id="content">
       <div id="welcomeDiv">
@@ -33,8 +38,10 @@
         <button id="registerBtn">Register</button>
         <button id="loginBtn">Login</button>
       </div>
-      <div id="registerDiv"></div>
-      <form id="registerForm" onsubmit="handleRegister(event)">
+      <div id="registerDiv">
+      <!-- <form id="registerForm" onsubmit="handleRegister(event)"> -->
+        <form id="registerForm">
+
         <label>Username</label>
         <input name="userName" type="text" placeholder="Enter username" />
         <br />
@@ -53,18 +60,26 @@
         <label>Birthday</label>
         <input name="birthday" type="date" />
 		<br />
-		<input id = "submitRegister" type = "submit" value="Register"/>
+		<input id = "submitRegister" type = "button" value="Register" />
 
       </form>
+    </div>
       <div id="loginDiv">
-		<form id="loginForm" onsubmit="handleLogin(event)">
+		<!-- <form id="loginForm" onsubmit="handleLogin(event)"> -->
+      <form id="loginForm" >
+
 			<label>Username</label>
 			<input name="userName" type="text" placeholder="Enter username" />
 			<br />
 			<label>Password</label>
 			<input name="password" type="text" placeholder="Enter password" />
 			<br />
-			<input id = "submitLogin" type = "submit" value="Login"/>
+			<!-- <input id = "submitLogin" type = "submit" value="Login"/> -->
+      			<input id = "submitLogin" type = "button" value="Login"/>
+
+      			<!-- <button id = "submitLogin"  value="Login"></button> -->
+          </form>
+
 		</div>
       <div id="gameDiv">
         <div id="score">

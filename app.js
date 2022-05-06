@@ -165,7 +165,8 @@ function UpdatePosition() {
 	if (score == 50) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
-	} else {
+	}
+	 else {
 		Draw();
 	}
 }

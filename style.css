@@ -41,8 +41,16 @@
       color: #000;
   }
   #registerDiv{
-    /* display: none; */
-    display: flex;
+    display: none;
+    /* display: flex; */
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+
+  }
+  #loginDiv{
+    display: none;
+    /* display: flex; */
 	justify-content: flex-start;
 	align-items: center;
 	text-align: center;

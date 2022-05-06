@@ -1,60 +1,114 @@
-var registerBtn
-var loginBtn
-var welocmeDiv
-var registerDiv
-var loginDiv
-var user
-var pass
-var users = {}
+var registerBtn;
+var loginBtn;
+var welocmeDiv;
+var registerDiv;
+var loginDiv;
+var users = {};
+var pass;
 
 $(document).ready(function () {
+    // menu buttons
+    loginMenuBtn = document.getElementById('menuLoginBtn');
+    welocmeMenuBtn = document.getElementById('menuWelcomeBtn');
+    registerMenuBtn = document.getElementById('menuRegisterBtn');
+
+    registerMenuBtn.onclick = displayRegisterDiv;
+    loginMenuBtn.onclick = displayLoginDiv;
+    welocmeMenuBtn.onclick = displayWelcomeDiv;
+
+    //welcome buttons
     registerBtn = document.getElementById('registerBtn');
     loginBtn = document.getElementById('loginBtn');
-    welocmeDiv = document.getElementById('welcomeDiv');
-    registerDiv = document.getElementById('registerDiv');
-    loginDiv = document.getElementById('loginDiv');
-    users["k"] = "k"
     registerBtn.onclick = displayRegisterDiv;
     loginBtn.onclick = displayLoginDiv;
+
+    //welcome window
+    welocmeDiv = document.getElementById('welcomeDiv');
+
+    //registeration window
+    registerDiv = document.getElementById('registerDiv');
+    // document.getElementById('registerForm').addEventListener('submit',handleRegister);
+    document.getElementById('submitRegister').addEventListener('click', handleRegister);
+
+    // sessionStorage.setItem("k","k"); //initial user
+    users["k"] = "k";
+
+    //login window
+    loginDiv = document.getElementById('loginDiv');
+    // document.getElementById('loginForm').addEventListener('submit',handleLogin);
+    document.getElementById('submitLogin').addEventListener('click', handleLogin);
+
+
+
 });
 
+//TODO:: in the display remember to hide all divs as we progress
 function displayRegisterDiv() {
-    if (welocmeDiv.style.display !== "none") {
-        welocmeDiv.style.display = "none";
-    }
-    registerDiv.style.display = "block";
+
+    $("#welcomeDiv").hide();
+    $("#loginDiv").hide();
+    $("#gameDiv").hide();
+
+    $("#registerDiv").show();
 }
+
 function displayLoginDiv() {
-    if (welocmeDiv.style.display !== "none") {
-        welocmeDiv.style.display = "none";
-    }
-    loginDiv.style.display = "block";
+    $("#welcomeDiv").hide();
+    $("#registerDiv").hide();
+    $("#gameDiv").hide();
+
+    $("#loginDiv").show();
+}
+
+function displayWelcomeDiv() {
+    $("#registerDiv").hide();
+    $("#loginDiv").hide();
+    $("#gameDiv").hide();
+
+    $("#welcomeDiv").show();
 }
 function handleRegister(event) {
     if ($("#registerForm").valid()) {
-        let form = event.target;
-        user = form.elements.userName.value;
-        pass = form.elements.password.value;
-        users[user] = pass;
-        for (var key in users) {
-            var value = users[key];
-            window.alert(key)
-            // do something with "key" and "value" variables
+        let form = event.target.form;
+        let user = form.elements.userName.value;
+        let pass = form.elements.password.value;
+        if (users[user] != null) {
+            alert("Username already exists in the system");
         }
+        else {
+            users[user] = pass;
+            $("#registerDiv").hide();
+            $("#gameDiv").show();
+        }
+        // if( sessionStorage.getItem(user) != null)
+        // {
+        //     alert("Username already exists in the system");
+        // }
+        // else
+        // {
+        //     sessionStorage.setItem(user,pass); 
+        //     $("#registerDiv").hide();
+        //     $("#gameDiv").show();
 
+
+        // }
     }
+
 }
 function handleLogin(event) {
+
     if ($("#loginForm").valid()) {
-        let form = event.target;
-        user = form.elements.userName.value;
-        pass = form.elements.password.value;
 
-        
+        let form = event.target.form;
 
+        let user = form.elements.userName.value;
+        let pass = form.elements.password.value;
+        // passInStorage = sessionStorage.getItem(user);
         if (user in users) {
             if (users[user] == pass) {
                 window.alert("yaayyyyyy")
+                $("#loginDiv").hide();
+                $("#gameDiv").show();
             }
             else {
                 window.alert("wrong password")
@@ -64,7 +118,25 @@ function handleLogin(event) {
             window.alert("wrong username")
 
         }
+        // if (passInStorage != null)
+        // {
+        //     if (passInStorage ==pass )
+        //     {
+        //         window.alert("yaayyyyyy");
+        //         $("#loginDiv").hide();
+        //         $("#gameDiv").show();
 
+        //     }
+        //     else
+        //     {
+        //         window.alert("wrong password");
+        //     }
+        // }
+        // else 
+        // {
+        //     window.alert("wrong username");
+
+        // }
     }
 
 }

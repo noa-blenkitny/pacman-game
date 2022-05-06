@@ -29,7 +29,7 @@ $(function () {
     }, 'Your password must be at least 6 characters long and contain at least one number and one char\'.')
 
     $("#registerForm").validate({
-        onsubmit: true,
+        onsubmit: false,
         onclick: false,
         onkeyup: false,
         onfocusout: false,
