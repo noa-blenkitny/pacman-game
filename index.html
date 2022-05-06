@@ -2,8 +2,13 @@
 <html>
   <head>
     <script src="./jquery-3.4.1.slim.min.js"></script>
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
     <script type="text/javascript" src="./app.js"></script>
-	<script type="text/javascript" src="./menu.js" ></script>
+    <script type="text/javascript" src="./menu.js"></script>
+	<script type="text/javascript" src="./validation.js"></script>
+
+
 
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link
@@ -24,12 +29,43 @@
     </div>
     <div id="content">
       <div id="welcomeDiv">
-		  <img src="images/welcome_packman.gif">
-		  <button id="registerBtn">Register</button>
-		  <button id="loginBtn">Login</button>
-	  </div>
-	  <div id="registerDiv"></div>
-	  <div id="loginDiv"></div>
+        <img src="images/welcome_packman.gif" />
+        <button id="registerBtn">Register</button>
+        <button id="loginBtn">Login</button>
+      </div>
+      <div id="registerDiv"></div>
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <label>Username</label>
+        <input name="userName" type="text" placeholder="Enter username" />
+        <br />
+        <label>Password</label>
+        <input name="password" type="text" placeholder="Enter password" />
+        <br />
+        <label>First name</label>
+        <input name="firstName" type="text" placeholder="Enter first name" />
+		<br />
+		<label>Last name</label>
+        <input name="lastName" type="text" placeholder="Enter last name" />
+		<br />
+        <label>E-mail</label>
+        <input name="email" type="email" placeholder="Enter email" />
+		<br />
+        <label>Birthday</label>
+        <input name="birthday" type="date" />
+		<br />
+		<input id = "submitRegister" type = "submit" value="Register"/>
+
+      </form>
+      <div id="loginDiv">
+		<form id="loginForm" onsubmit="handleLogin(event)">
+			<label>Username</label>
+			<input name="userName" type="text" placeholder="Enter username" />
+			<br />
+			<label>Password</label>
+			<input name="password" type="text" placeholder="Enter password" />
+			<br />
+			<input id = "submitLogin" type = "submit" value="Login"/>
+		</div>
       <div id="gameDiv">
         <div id="score">
           <label for="lblScore">SCORE:</label>
@@ -46,5 +82,8 @@
     </div>
 
     <div id="footer"></div>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/additional-methods.min.js"></script>
+
   </body>
 </html>

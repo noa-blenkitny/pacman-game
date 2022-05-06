@@ -40,3 +40,14 @@
   {
       color: #000;
   }
+<<<<<<< HEAD
+=======
+  #registerDiv{
+    /* display: none; */
+    display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+
+  }
+>>>>>>> ca51a3792d812c2d020ac704dc4941a35a9f13f6
