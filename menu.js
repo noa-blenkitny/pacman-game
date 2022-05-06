@@ -30,8 +30,6 @@ function displayLoginDiv() {
     }
     loginDiv.style.display = "block";
 }
-<<<<<<< HEAD
-=======
 function handleRegister(event) {
     if ($("#registerForm").valid()) {
         let form = event.target;
@@ -70,4 +68,3 @@ function handleLogin(event) {
     }
 
 }
->>>>>>> ca51a3792d812c2d020ac704dc4941a35a9f13f6
