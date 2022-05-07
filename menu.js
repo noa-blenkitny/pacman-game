@@ -11,12 +11,11 @@ $(document).ready(function () {
     loginMenuBtn = document.getElementById('menuLoginBtn');
     welocmeMenuBtn = document.getElementById('menuWelcomeBtn');
     registerMenuBtn = document.getElementById('menuRegisterBtn');
-    aboutMenuBtn = document.getElementById('menuAboutBtn');
+
 
     registerMenuBtn.onclick = displayRegisterDiv;
     loginMenuBtn.onclick = displayLoginDiv;
     welocmeMenuBtn.onclick = displayWelcomeDiv;
-    aboutMenuBtn.onclick = displayAboutWin
 
     //welcome buttons
     registerBtn = document.getElementById('registerBtn');
@@ -44,6 +43,8 @@ $(document).ready(function () {
 
 });
 
+
+
 //TODO:: in the display remember to hide all divs as we progress
 function displayRegisterDiv() {
 
@@ -66,6 +67,7 @@ function displayWelcomeDiv() {
     $("#registerDiv").hide();
     $("#loginDiv").hide();
     $("#gameDiv").hide();
+    $("#AboutDiv").hide();
 
     $("#welcomeDiv").show();
 }
@@ -97,13 +99,6 @@ function handleRegister(event) {
     }
 
 }
-
-//function that open the about modal window
-function displayAboutWin() {
-
-    $("#AboutDiv").show();
-}
-
 function handleLogin(event) {
 
     if ($("#loginForm").valid()) {

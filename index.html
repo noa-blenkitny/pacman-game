@@ -8,6 +8,11 @@
     <script type="text/javascript" src="./menu.js"></script>
 	<script type="text/javascript" src="./validation.js"></script>
 
+  <!-- modals scripts -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 
 
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -28,8 +33,8 @@
       </ul> -->
         <button class="tablinks" id= "menuWelcomeBtn">Welcome</button>
         <button class="tablinks" id= "menuRegisterBtn">Register</button>
-        <button class="tablinks" id="menuLoginBtn">Login</button>
-        <button class="tablinks" id="menuAboutBtn">About</button>
+        <button class="tablinks" id="menuLoginBtn">Login</button>     
+        <button type="button" class="btn btn-info btn-lg" data-keyboard="true" data-toggle="modal" data-target="#myModal">About</button>
       
     </div>
     <div id="content">
@@ -82,26 +87,27 @@
 
 		</div>
 
-    <!-- About Div -->
-    <div class="modal" id = "AboutDiv" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex='-1' role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
+      
     </div>
+  </div>
+
 
 
       <div id="gameDiv">
