@@ -53,7 +53,6 @@ $(document).ready(function() {
 	//images
 	cherries_img = new Image();
 	cherries_img.src = '/images/cherries.png';
-
 	monster1 = new Image();
 	monster1.src = '/images/monster1.png';
 	monster2 = new Image();
@@ -61,20 +60,19 @@ $(document).ready(function() {
 	monster3 = new Image();
 	monster3.src = '/images/monster3.png'
 	monster4 = new Image();
-	monster4.src = '/images/monster4.png'
+	monster4.src = '/images/monster5.png'
 	 //settingDiv
 	 lstartGameBtn = document.getElementById('StartGame');
 	 lstartGameBtn.onclick = StartGame;
 	
 });
 
-//start game funck
+//start game func
 function StartGame(){
 	$("#welcomeDiv").hide();
     $("#loginDiv").hide();
     $("#registerDiv").hide();
 	$("#settingGame").hide();
-
     $("#gameDiv").show();
 	Start();
 }
@@ -87,7 +85,6 @@ function Start() {
 	monster_board = new Array();
 	cherries_board = new Array();
 	monsters_array = new Array();
-	counter_monsters = num_monsters;
 	score = 0;
 	x=4;
 	pac_color = "yellow";
@@ -199,9 +196,6 @@ function Start() {
 	interval = setInterval(UpdatePosition, 145);
 	cherries_interval = setInterval(updateCherriesPosition, 500);
 	monsters_interval = setInterval(updateMonsterPosition, 500);
-
-	//monster1_interval = setInterval(updateMonsterPosition, 500 ,monster_shape1);
-
 	
 }//end start
 
@@ -241,6 +235,7 @@ function GetKeyPressed() {
 
 function Draw() {//draw canvas
 	canvas.width = canvas.width; //clean board
+	counter_monsters = num_monsters;
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
 	lblLives.value = lives;
@@ -259,15 +254,15 @@ function Draw() {//draw canvas
 				counter_monsters--;
 			}
 			else if(monster_board[i][j]==3 && counter_monsters == num_monsters-1 && counter_monsters > 0){
-				context.drawImage(monster2,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				context.drawImage(monster2,center.x-30, center.y-30,monster2.width/11,monster2.height/11);
 				counter_monsters--;
 			}
 			else if(monster_board[i][j]==3 && counter_monsters == num_monsters-2 && counter_monsters > 0){
-				context.drawImage(monster3,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				context.drawImage(monster3,center.x-30, center.y-30,monster3.width/11,monster3.height/11);
 				counter_monsters--;
 			}
 			else if(monster_board[i][j]==3 && counter_monsters == num_monsters-3 && counter_monsters > 0){
-				context.drawImage(monster4,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				context.drawImage(monster4,center.x-30, center.y-30,monster4.width/11,monster4.height/11);
 				counter_monsters--;
 			}
 			else if (board[i][j] == 2) {//packman draw
@@ -386,7 +381,7 @@ function UpdatePosition() {
 		pac_color = "green";
 	}
 	if (lives == 0) {
-		Draw();
+		//Draw();
 		window.clearInterval(interval);
 		window.alert("Loser!");
 	}
