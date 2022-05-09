@@ -1,55 +1,108 @@
 //initialize variables
 var context;
 var shape = new Object();
+var lives = 5;
 
 //monsters
+var num_monsters = 4;
+var counter_monsters;
+var monsters_array;
 var monster_shape1 = new Object();
-var monster_shape2 = new Object();
-var monster_shape3 = new Object();
-var monster_shape4 = new Object();
 var cherries = new Object();
 
+//boards
 var board;
+var monster_board;
+var cherries_board;
+
 var score;
 var pac_color;
 var start_time;
 var time_elapsed;
 var x;
-var object_befor_cherries=0;
-var object_befor_monster1 = new Object();
-object_befor_monster1.val = 0;
-var flag_if = 0
 
 //intervals
 var interval;
 var cherries_interval;
-var monster1_interval;
+var monsters_interval;
+
+//flags
+var not_move_cherries = true;
+var ate_cherries = false;
+var failure_flag;
 
 //images
-const cherries_img = new Image();
-cherries_img.src = '/images/cherries.png';
+// const cherries_img = new Image();
+// cherries_img.src = '/images/cherries.png';
 
-const monster1 = new Image();
-monster1.src = '/images/monster1.png';
+var monster1;
+var monster2;
+var monster3;
+var monster4;
+var cherries_img;
+// monster1.src = '/images/monster1.png';
+// const monster2 = new Image();
+// monster2.src = '/images/monster2.png'
+// const monster3 = new Image();
+// monster3.src = '/images/monster3.png'
+// const monster4 = new Image();
+// monster4.src = '/images/monster4.png'
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
-	Start();
+	//images
+	cherries_img = new Image();
+	cherries_img.src = '/images/cherries.png';
+
+	monster1 = new Image();
+	monster1.src = '/images/monster1.png';
+	monster2 = new Image();
+	monster2.src = '/images/monster2.png'
+	monster3 = new Image();
+	monster3.src = '/images/monster3.png'
+	monster4 = new Image();
+	monster4.src = '/images/monster4.png'
+	 //settingDiv
+	 lstartGameBtn = document.getElementById('StartGame');
+	 lstartGameBtn.onclick = StartGame;
+	
 });
+
+//start game funck
+function StartGame(){
+	$("#welcomeDiv").hide();
+    $("#loginDiv").hide();
+    $("#registerDiv").hide();
+	$("#settingGame").hide();
+
+    $("#gameDiv").show();
+	Start();
+}
+
 
 function Start() {
 
 	//initial board
 	board = new Array();
+	monster_board = new Array();
+	cherries_board = new Array();
+	monsters_array = new Array();
+	counter_monsters = num_monsters;
 	score = 0;
 	x=4;
 	pac_color = "yellow";
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
+	//initial monsters
+	for (let k = 0; k < num_monsters; k++) {
+		monsters_array[k] = new Object();
+	}
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
+		monster_board[i] = new Array();
+		cherries_board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
 			if (
@@ -60,29 +113,63 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = 4;//wall
+				monster_board[i][j] = 0
+				cherries_board[i][j] = 0
 			}
 			else if(i == 4 && j == 4){
 				cherries.i = i;
 				cherries.j = j;
-				board[i][j] = 5;//cherries
+				cherries_board[i][j] = 5;//cherries
+				board[i][j] = 0;
+				monster_board[i][j] =0;
 			}
 			else if(i == 0 && j == 0){
-				monster_shape1.i = i;
-				monster_shape1.j = j;
-				board[i][j] = 3;//monster
+				monsters_array[0].i = i;
+				monsters_array[0].j = j;
+				monster_board[i][j] = 3;//monster
+				board[i][j] = 0;
+				cherries_board[i][j] = 0;
+			}
+			else if(num_monsters>1 && i == 0 && j == 9){
+					monsters_array[1].i = i;
+					monsters_array[1].j = j; 
+					monster_board[i][j] = 3;//monster 2
+					board[i][j] = 0;
+					cherries_board[i][j] = 0;
+			}
+			else if(num_monsters > 2 && i == 9 && j == 0){
+				monsters_array[2].i = i;
+				monsters_array[2].j = j; 
+				monster_board[i][j] = 3;//monster 3
+				board[i][j] = 0;
+				cherries_board[i][j] = 0;
+			}
+			else if(num_monsters > 3 && i == 9 && j == 9){
+				monsters_array[3].i = i;
+				monsters_array[3].j = j; 
+				monster_board[i][j] = 3;//monster 4
+				board[i][j] = 0;
+				cherries_board[i][j] = 0;
 			}
 			else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
 					board[i][j] = 1;//food
+					monster_board[i][j] = 0;
+					cherries_board[i][j] = 0;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
 					pacman_remain--;
 					board[i][j] = 2;//packman
+					monster_board[i][j] = 0;
+					cherries_board[i][j] = 0;
 				} else {
-					board[i][j] = 0;//empty
+					board[i][j] = 0; //empty
+					monster_board[i][j] = 0;
+					cherries_board[i][j] = 0;
+
 				}
 				cnt--;
 			}
@@ -111,7 +198,9 @@ function Start() {
 	);
 	interval = setInterval(UpdatePosition, 145);
 	cherries_interval = setInterval(updateCherriesPosition, 500);
-	monster1_interval = setInterval(updateMonster1Position, 500 ,monster_shape1, object_befor_monster1);
+	monsters_interval = setInterval(updateMonsterPosition, 500);
+
+	//monster1_interval = setInterval(updateMonsterPosition, 500 ,monster_shape1);
 
 	
 }//end start
@@ -125,7 +214,7 @@ function getRandomInt(min, max) {
 function findRandomEmptyCell(board) {
 	var i = Math.floor(Math.random() * 9 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
-	while (board[i][j] != 0) {
+	while (board[i][j] != 0 || monster_board[i][j] !=0 || cherries_board[i][j] != 0) {
 		i = Math.floor(Math.random() * 9 + 1);
 		j = Math.floor(Math.random() * 9 + 1);
 	}
@@ -154,12 +243,34 @@ function Draw() {//draw canvas
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+	lblLives.value = lives;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {//packman draw
+			//draw cherries
+			if(cherries_board[i][j]==5){
+				context.drawImage(cherries_img,center.x-30, center.y-30,cherries_img.width/15,cherries_img.height/15);
+			}
+			//draw monsters
+			else if(monster_board[i][j]==3 && counter_monsters == num_monsters && counter_monsters > 0){
+				context.drawImage(monster1,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				counter_monsters--;
+			}
+			else if(monster_board[i][j]==3 && counter_monsters == num_monsters-1 && counter_monsters > 0){
+				context.drawImage(monster2,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				counter_monsters--;
+			}
+			else if(monster_board[i][j]==3 && counter_monsters == num_monsters-2 && counter_monsters > 0){
+				context.drawImage(monster3,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				counter_monsters--;
+			}
+			else if(monster_board[i][j]==3 && counter_monsters == num_monsters-3 && counter_monsters > 0){
+				context.drawImage(monster4,center.x-30, center.y-30,monster1.width/11,monster1.height/11);
+				counter_monsters--;
+			}
+			else if (board[i][j] == 2) {//packman draw
 				context.beginPath();
 				if (x == 1) {
 					context.arc(center.x, center.y, 30, 1.65 * Math.PI, 3.35 * Math.PI);
@@ -190,19 +301,6 @@ function Draw() {//draw canvas
 				context.fillStyle = "black"; //color
 				context.fill();
 			
-
-				//context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // turn right
-				//context.arc(center.x, center.y, 30, 1.15 * Math.PI, 2.85 * Math.PI); // turn left
-				//context.arc(center.x, center.y, 30, 1.65 * Math.PI, 3.35 * Math.PI);//turn up
-				// context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI);//turn down
-				// context.lineTo(center.x, center.y);
-				// context.fillStyle = pac_color; //color
-				// context.fill();
-				// context.beginPath();
-				// //context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle left/right
-				// context.arc(center.x + 12.5, center.y, 5, 0, 2 * Math.PI); // circle up/down
-				// context.fillStyle = "black"; //color
-				// context.fill();
 			} else if (board[i][j] == 1) {//food draw
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
@@ -214,18 +312,30 @@ function Draw() {//draw canvas
 				context.fillStyle = "grey"; //color
 				context.fill();
 			}
-			else if(board[i][j]==5){
-				context.drawImage(cherries_img,center.x-30, center.y-30,cherries_img.width/15,cherries_img.height/15);
-			}
-			else if(board[i][j]==3){
-				context.drawImage(monster1,center.x-30, center.y-30,monster1.width/15,monster1.height/15);
-			}
 		}
 	}
 
 }
 
+function clear_intervals(){
+	clearInterval(interval);
+	clearInterval(monsters_interval);
+	if(!ate_cherries){
+		clearInterval(cherries_interval);
+	}
+
+}
+
+function set_intervals(){
+	interval = setInterval(UpdatePosition, 145);
+	monsters_interval = setInterval(updateMonsterPosition, 500);
+	if (!ate_cherries){
+		cherries_interval = setInterval(updateCherriesPosition, 500);
+	}
+}
+
 function UpdatePosition() {
+	failure_flag = false;
 	board[shape.i][shape.j] = 0;
 	x = GetKeyPressed();
 	if (x == 1) {
@@ -248,23 +358,37 @@ function UpdatePosition() {
 			shape.i++;
 		}
 	}
+	//ate food
 	if (board[shape.i][shape.j] == 1) {
 		score++;
 	}
-	if(board[shape.i][shape.j] == 5){
-		score += 50;
+	//ate cherries
+	if(cherries_board[shape.i][shape.j] == 5){
 		window.clearInterval(cherries_interval);
+		cherries_board [cherries.i][cherries.j]=0;
+		score += 50;
+		ate_cherries = true;
 	}
-	if(board[shape.i][shape.j] == 3){
-		score -= 50;
-		shape.i, shape.j = findRandomEmptyCell(board)
+	//ate monster
+	if(monster_board[shape.i][shape.j] == 3){
+		clear_intervals();
+		setTimeout(failure, 1500)
+		failure_flag = true;
 
 	}
 	board[shape.i][shape.j] = 2;//update packman position
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
+	if(failure_flag){
+		time_elapsed = time_elapsed + 1.5;
+	}
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
+	}
+	if (lives == 0) {
+		Draw();
+		window.clearInterval(interval);
+		window.alert("Loser!");
 	}
 	if (score >= 50) {
 		Draw();
@@ -276,81 +400,127 @@ function UpdatePosition() {
 	}
 }
 
+
+function failure(){
+	board[shape.i][shape.j]= 0 ;
+	score -= 10;
+	let empty_cell = findRandomEmptyCell(board)
+	monster_board[shape.i][shape.j] = 0;
+	shape.i = empty_cell[0];
+	shape.j = empty_cell[1];
+	clear_monsters();
+	lives--;
+	set_intervals();
+
+}
+
+
 function updateCherriesPosition(){
+	not_move_cherries = true;
+	while (not_move_cherries){
 	cherries_position = getRandomInt(1, 5)
 	if (cherries_position == 1) {
-		if (cherries.j > 0 && board[cherries.i][cherries.j - 1] != 4) {
-			board[cherries.i][cherries.j] = object_befor_cherries
-			object_befor_cherries = board[cherries.i][cherries.j - 1];
+		if (cherries.j > 0 && board[cherries.i][cherries.j - 1] != 4 && monster_board[cherries.i][cherries.j - 1] != 3) {
+			cherries_board[cherries.i][cherries.j] = 0;
 			cherries.j--;
+			not_move_cherries = false;
 			
 		}
 	}
 	else if (cherries_position == 2) {
-		if (cherries.j < 9 && board[cherries.i][cherries.j + 1] != 4) {
-			board[cherries.i][cherries.j] = object_befor_cherries
-			object_befor_cherries = board[cherries.i][cherries.j + 1];
+		if (cherries.j < 9 && board[cherries.i][cherries.j + 1] != 4 && monster_board[cherries.i][cherries.j + 1] != 3) {
+			cherries_board[cherries.i][cherries.j] = 0;
 			cherries.j++;
+			not_move_cherries = false;
 		}
 	}
 	else if (cherries_position == 3) {
-		if (cherries.i > 0 && board[cherries.i - 1][cherries.j] != 4) {
-			board[cherries.i][cherries.j] = object_befor_cherries
-			object_befor_cherries = board[cherries.i-1][cherries.j];
+		if (cherries.i > 0 && board[cherries.i - 1][cherries.j] != 4 && monster_board[cherries.i -1][cherries.j] != 3) {
+			cherries_board[cherries.i][cherries.j] = 0;
 			cherries.i--;
+			not_move_cherries = false;
 		}
 	}
 	else if (cherries_position == 4) {
-		if (cherries.i < 9 && board[cherries.i + 1][cherries.j] != 4) {
-			board[cherries.i][cherries.j] = object_befor_cherries
-			object_befor_cherries = board[cherries.i+1][cherries.j];
+		if (cherries.i < 9 && board[cherries.i + 1][cherries.j] != 4 && monster_board[cherries.i + 1][cherries.j] != 3) {
+			cherries_board[cherries.i][cherries.j] = 0;
 			cherries.i++;
+			not_move_cherries = false;
 		}
 	}
-	board[cherries.i][cherries.j] = 5;//update cherries position
+}
+	cherries_board[cherries.i][cherries.j] = 5;//update cherries position
 }
 
-function updateMonster1Position(monster, object_befor_monster){
+function updateMonsterPosition(){
+	for (let monster = 0; monster < monsters_array.length; monster++) {
+	let not_move_monster = true;
+	while (not_move_monster){
+	monster_board[monsters_array[monster].i][monsters_array[monster].j] = 0;
 	let monster_direction = getRandomInt(1, 3);
 	if (monster_direction == 1){
-
-	if (shape.j-monster.j <= 0) {
-		if (monster.j > 0 && board[monster.i][monster.j - 1] != 4) {
-			board[monster.i][monster.j] = object_befor_monster.val
-			object_befor_monster.val = board[monster.i][monster.j - 1];
-			monster.j--;
-			flag_if = 1;
+	if (shape.j-monsters_array[monster].j <= 0) {
+		if (monsters_array[monster].j > 0 && board[monsters_array[monster].i][monsters_array[monster].j - 1] != 4) {
+			monsters_array[monster].j--;
+			not_move_monster = false;
 		}
 	}
 	else {
-		if (monster.j < 9 && board[monster.i][monster.j + 1] != 4) {
-			board[monster.i][monster.j] = object_befor_monster.val
-			object_befor_monster.val = board[monster.i][monster.j + 1];
-			monster.j++;
-			flag_if = 1;
+		if (monsters_array[monster].j < 9 && board[monsters_array[monster].i][monsters_array[monster].j + 1] != 4) {
+			monsters_array[monster].j++;
+			not_move_monster = false;
 		}
 	}
 }
 else{
-	if (shape.i - monster.i <= 0) {
-		if (monster.i > 0 && board[monster.i - 1][monster.j] != 4) {
-			board[monster.i][monster.j] = object_befor_monster.val
-			object_befor_monster.val = board[monster.i-1][monster.j];
-			monster.i--;
-			flag_if = 1;
+	if (shape.i - monsters_array[monster].i <= 0) {
+		if (monsters_array[monster].i > 0 && board[monsters_array[monster].i - 1][monsters_array[monster].j] != 4) {
+			monsters_array[monster].i--;
+			not_move_monster = false;
 		}
 	}
 	else {
-		if (monster.i < 9 && board[monster.i + 1][monster.j] != 4) {
-			board[monster.i][monster.j] = object_befor_monster.val
-			object_befor_monster.val = board[monster.i+1][monster.j];
-			monster.i++;
-			flag_if = 1;
+		if (monsters_array[monster].i < 9 && board[monsters_array[monster].i + 1][monsters_array[monster].j] != 4) {
+			monsters_array[monster].i++;
+			not_move_monster = false;
 		}
 	}
 }
-	if (flag_if ==  1){
-	board[monster.i][monster.j] = 3;//update monster position
 	}
-	flag_if = 0;
+	monster_board[monsters_array[monster].i][monsters_array[monster].j] = 3;
 }
+
+}
+function clear_monsters(){
+	for (let i = 0; i < 10; i++) {
+		for (let j = 0; j < 10; j++) {
+			if(i==0 && j==0){
+			monsters_array[0].i = 0;	
+			monsters_array[0].j = 0;	
+			monster_board[monsters_array[0].i][monsters_array[0].j] = 3;
+			}
+			else if (num_monsters > 1 && (i==0 && j==9))
+			{
+				monsters_array[1].i = 0;	
+				monsters_array[1].j = 9;	
+				monster_board[monsters_array[1].i][monsters_array[1].j] = 3;
+			}
+			else if(num_monsters>2 && (i==9 && j==0)){
+					monsters_array[2].i = 9;	
+					monsters_array[2].j = 0;	
+					monster_board[monsters_array[2].i][monsters_array[2].j] = 3;
+			}
+			else if(num_monsters>3 && (i==9 && j==9)){
+						monsters_array[3].i = 9;	
+						monsters_array[3].j = 9;	
+						monster_board[monsters_array[3].i][monsters_array[3].j] = 3;
+					}
+			else{
+				monster_board[i][j] = 0;
+			}
+				}
+		
+			}
+			
+	}
+		

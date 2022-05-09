@@ -44,7 +44,6 @@
         <button id="loginBtn">Login</button>
       </div>
       <div id="registerDiv">
-      <!-- <form id="registerForm" onsubmit="handleRegister(event)"> -->
         <form id="registerForm">
 
         <label>Username</label>
@@ -70,7 +69,7 @@
       </form>
     </div>
       <div id="loginDiv">
-		<!-- <form id="loginForm" onsubmit="handleLogin(event)"> -->
+
       <form id="loginForm" >
 
 			<label>Username</label>
@@ -108,8 +107,10 @@
     </div>
   </div>
 
-
-
+<div id = "settingGame"  >
+  <button class="tablinks" id= "StartGame">Start Game</button>
+</div>
+<!-- GameDiv -->
       <div id="gameDiv">
         <div id="score">
           <label for="lblScore">SCORE:</label>
@@ -118,6 +119,10 @@
         <div id="time">
           <label for="lblTime">TIME:</label>
           <input id="lblTime" type="text" />
+        </div>
+        <div id="lives">
+          <label for="lblLives">LIVES:</label>
+          <input id="lblLives" type="text" />
         </div>
         <div id="game">
           <canvas id="canvas" height="600" width="600"></canvas>

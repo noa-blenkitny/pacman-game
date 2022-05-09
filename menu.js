@@ -82,23 +82,12 @@ function handleRegister(event) {
         else {
             users[user] = pass;
             $("#registerDiv").hide();
-            $("#gameDiv").show();
+            $("#loginDiv").show();
         }
-        // if( sessionStorage.getItem(user) != null)
-        // {
-        //     alert("Username already exists in the system");
-        // }
-        // else
-        // {
-        //     sessionStorage.setItem(user,pass); 
-        //     $("#registerDiv").hide();
-        //     $("#gameDiv").show();
-
-
-        // }
     }
 
 }
+
 function handleLogin(event) {
 
     if ($("#loginForm").valid()) {
@@ -112,7 +101,7 @@ function handleLogin(event) {
             if (users[user] == pass) {
                 window.alert("yaayyyyyy")
                 $("#loginDiv").hide();
-                $("#gameDiv").show();
+                $("#settingGame").show();
             }
             else {
                 window.alert("wrong password")
@@ -122,25 +111,6 @@ function handleLogin(event) {
             window.alert("wrong username")
 
         }
-        // if (passInStorage != null)
-        // {
-        //     if (passInStorage ==pass )
-        //     {
-        //         window.alert("yaayyyyyy");
-        //         $("#loginDiv").hide();
-        //         $("#gameDiv").show();
-
-        //     }
-        //     else
-        //     {
-        //         window.alert("wrong password");
-        //     }
-        // }
-        // else 
-        // {
-        //     window.alert("wrong username");
-
-        // }
     }
 
 }
