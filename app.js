@@ -3,11 +3,11 @@ var context;
 var lives;
 var shape;
 //monsters
-var num_monsters = 4;
+var num_monsters;
 var counter_monsters;
 var monsters_array;
 var cherries;
-alert("refresh");
+
 //boards
 var board;
 var monster_board;
@@ -23,7 +23,7 @@ var x;
 //var interval;
 //var cherries_interval;
 //var monsters_interval;
-var intervals;
+var intervals = [];
 
 //setting var
 var food_num;
@@ -35,6 +35,7 @@ var color25;
 var food_25;
 var food_5;
 var food_15;
+var timer = 60;
 
 //flags
 var not_move_cherries;
@@ -60,13 +61,7 @@ monster3 = new Image();
 monster3.src = '/images/monster3.png'
 monster4 = new Image();
 monster4.src = '/images/monster5.png'
-// monster1.src = '/images/monster1.png';
-// const monster2 = new Image();
-// monster2.src = '/images/monster2.png'
-// const monster3 = new Image();
-// monster3.src = '/images/monster3.png'
-// const monster4 = new Image();
-// monster4.src = '/images/monster4.png'
+
 var registerBtn;
 var loginBtn;
 var welocmeDiv;
@@ -74,6 +69,134 @@ var registerDiv;
 var loginDiv;
 var users = {};
 var pass;
+function clear_intervals() {
+	while (intervals.length > 0) {
+		clearInterval(intervals.pop());
+	}
+
+}
+
+$(document).ready(function () {
+    // menu buttons
+    loginMenuBtn = document.getElementById('menuLoginBtn');
+    welocmeMenuBtn = document.getElementById('menuWelcomeBtn');
+    registerMenuBtn = document.getElementById('menuRegisterBtn');
+
+
+    registerMenuBtn.onclick = displayRegisterDiv;
+    loginMenuBtn.onclick = displayLoginDiv;
+    welocmeMenuBtn.onclick = displayWelcomeDiv;
+
+    //welcome buttons
+    registerBtn = document.getElementById('registerBtn');
+    loginBtn = document.getElementById('loginBtn');
+    registerBtn.onclick = displayRegisterDiv;
+    loginBtn.onclick = displayLoginDiv;
+
+    //welcome window
+    welocmeDiv = document.getElementById('welcomeDiv');
+
+    //registeration window
+    registerDiv = document.getElementById('registerDiv');
+    // document.getElementById('registerForm').addEventListener('submit',handleRegister);
+    document.getElementById('submitRegister').addEventListener('click', handleRegister);
+
+    // sessionStorage.setItem("k","k"); //initial user
+    users["k"] = "k";
+
+    //login window
+    loginDiv = document.getElementById('loginDiv');
+    // document.getElementById('loginForm').addEventListener('submit',handleLogin);
+    document.getElementById('submitLogin').addEventListener('click', handleLogin);
+
+
+
+});
+
+
+//TODO:: in the display remember to hide all divs as we progress
+function displayRegisterDiv() {
+
+    clear_intervals();     
+
+    $("#welcomeDiv").hide();
+    $("#loginDiv").hide();
+    $("#gameDiv").hide();
+    $("#settingGame").hide();
+
+    $("#registerDiv").show();
+}
+
+function displayLoginDiv() {
+        clear_intervals();
+
+    $("#welcomeDiv").hide();
+    $("#registerDiv").hide();
+    $("#gameDiv").hide();
+    $("#settingGame").hide();
+
+    $("#loginDiv").show();
+}
+
+function displayWelcomeDiv() {
+
+    clear_intervals();
+
+    $("#registerDiv").hide();
+    $("#loginDiv").hide();
+    $("#gameDiv").hide();
+    $("#AboutDiv").hide();
+    $("#settingGame").hide();
+
+    $("#welcomeDiv").show();
+}
+function handleRegister(event) {
+    if ($("#registerForm").valid()) {
+        let form = event.target.form;
+        let user = form.elements.userName.value;
+        let pass = form.elements.password.value;
+        if (users[user] != null) {
+            alert("Username already exists in the system");
+        }
+        else {
+            users[user] = pass;
+            $("#registerDiv").hide();
+            $("#loginDiv").show();
+        }
+    }
+
+}
+
+
+function handleLogin(event) {
+
+    if ($("#loginForm").valid()) {
+
+        let form = event.target.form;
+
+        let user = form.elements.userName.value;
+        let pass = form.elements.password.value;
+        // passInStorage = sessionStorage.getItem(user);
+        if (user in users) {
+            if (users[user] == pass) {
+                window.alert("yaayyyyyy")
+                $("#loginDiv").hide();
+                $("#settingGame").show();
+            }
+            else {
+                window.alert("wrong password")
+            }
+        }
+        else {
+            window.alert("wrong username")
+
+        }
+    }
+
+}
+
+
+
 
 $(document).ready(function () {
 	context = canvas.getContext("2d");
@@ -99,9 +222,14 @@ $(document).ready(function () {
 	rightKey.addEventListener('keyup', displayKeyPressed);
 
 	function randomSetting(){
+		clear_intervals();
 		let form = event.target.form;
-		let random_foof_num = getRandomInt(50,91);
-        form.elements.foodnum.value = random_foof_num;
+		let random_food_num = getRandomInt(50,91);
+		let random_mons_num = getRandomInt(1,5);
+		let random_timer = getRandomInt(60,121);
+        form.elements.foodnum.value = random_food_num;
+		form.elements.monstersnum.value = random_mons_num;
+		form.elements.gametime.value = random_timer;
 		form.elements.upkey.value = 38;
 		form.elements.downkey.value = 40;
 		form.elements.rightkey.value = 39;
@@ -129,52 +257,47 @@ $(document).ready(function () {
 		return `#${randColor.toUpperCase()}`
 	}
 	
+	
+	
+	
 
 	function startNewGame() {
 
-		clear_intervals();
+			clear_intervals();
 
-		//context.clearRect(0, 0, canvas.width, canvas.height);
-		//context = canvas.getContext("2d");
-		//$("#gameDiv").hide();
 		document.getElementById('gameDiv').style.display = "none";
 
 		document.getElementById('settingGame').style.display = "block";;
-		//settingGame.display = block;
-		//$("#settingGame").show();
-		//Start();
+
 	}
 
 	//start game func
 	function StartGame() {
+		clear_intervals();
 		$("#welcomeDiv").hide();
 		$("#loginDiv").hide();
 		$("#registerDiv").hide();
-		//$("#settingGame").hide();
-		//$("#gameDiv").show();
+
 
 		if ($("#settingForm").valid()) {
 			$("#settingGame").hide();
 			$("#gameDiv").show();
 			let form = event.target.form;
         	food_num  = form.elements.foodnum.value;
+			num_monsters = form.elements.monstersnum.value;
+			timer = form.elements.gametime.value;
 			color5 = form.elements.color5.value;
 			color15 = form.elements.color15.value;
 			color25 = form.elements.color25.value;
 			Start();
 		}
-
-
-		// clear_intervals();
-		//setTimeout(start,0);
-		//Start();
 	}
 
 
 	function Start() {
 		//initial board
+		clear_intervals();
 		gameInProgress = true;
-		intervals = new Array();
 		board = new Array();
 		shape = new Object();
 		shape.i = 0;
@@ -200,12 +323,12 @@ $(document).ready(function () {
 			monsters_array[k] = new Object();
 		}
 		start_time = new Date();
-		for (var i = 0; i < 10; i++) {
+		for (var i = 0; i < 15; i++) {
 			board[i] = new Array();
 			monster_board[i] = new Array();
 			cherries_board[i] = new Array();
 			//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-			for (var j = 0; j < 10; j++) {
+			for (var j = 0; j < 15; j++) {
 				if (
 					(i == 3 && j == 3) ||
 					(i == 3 && j == 4) ||
@@ -217,7 +340,7 @@ $(document).ready(function () {
 					monster_board[i][j] = 0
 					cherries_board[i][j] = 0
 				}
-				else if (i == 4 && j == 4) {
+				else if (i == 7 && j == 7) {
 					cherries.i = i;
 					cherries.j = j;
 					cherries_board[i][j] = 5;//cherries
@@ -231,21 +354,21 @@ $(document).ready(function () {
 					board[i][j] = 0;
 					cherries_board[i][j] = 0;
 				}
-				else if (num_monsters > 1 && i == 0 && j == 9) {
+				else if (num_monsters > 1 && i == 0 && j == 14) {
 					monsters_array[1].i = i;
 					monsters_array[1].j = j;
 					monster_board[i][j] = 3;//monster 2
 					board[i][j] = 0;
 					cherries_board[i][j] = 0;
 				}
-				else if (num_monsters > 2 && i == 9 && j == 0) {
+				else if (num_monsters > 2 && i == 14 && j == 0) {
 					monsters_array[2].i = i;
 					monsters_array[2].j = j;
 					monster_board[i][j] = 3;//monster 3
 					board[i][j] = 0;
 					cherries_board[i][j] = 0;
 				}
-				else if (num_monsters > 3 && i == 9 && j == 9) {
+				else if (num_monsters > 3 && i == 14 && j == 14) {
 					monsters_array[3].i = i;
 					monsters_array[3].j = j;
 					monster_board[i][j] = 3;//monster 4
@@ -305,9 +428,6 @@ $(document).ready(function () {
 		intervals.push(setInterval(updateCherriesPosition, 500));
 		intervals.push(setInterval(updateMonsterPosition, 500));
 		intervals.push(setInterval(UpdatePosition, 145));
-		// cherries_interval = setInterval(updateCherriesPosition, 500);
-		// monsters_interval = setInterval(updateMonsterPosition, 500);
-		// interval = setInterval(UpdatePosition, 145);
 
 
 	}//end start
@@ -319,31 +439,16 @@ $(document).ready(function () {
 	}
 
 	function findRandomEmptyCell(board) {
-		var i = Math.floor(Math.random() * 9 + 1);
-		var j = Math.floor(Math.random() * 9 + 1);
+		var i = Math.floor(Math.random() * 14 + 1);
+		var j = Math.floor(Math.random() * 14 + 1);
 		while (board[i][j] != 0 || monster_board[i][j] != 0 || cherries_board[i][j] != 0) {
-			i = Math.floor(Math.random() * 9 + 1);
-			j = Math.floor(Math.random() * 9 + 1);
+			i = Math.floor(Math.random() * 14 + 1);
+			j = Math.floor(Math.random() * 14 + 1);
 		}
 		return [i, j];
 	}
 
 	function GetKeyPressed() {
-		// if (keysDown[38]) {//up
-		// 	return 1;
-		// }
-		// if (keysDown[40]) {//down
-		// 	return 2;
-		// }
-		// if (keysDown[37]) {//left
-		// 	return 3;
-		// }
-		// if (keysDown[39]) {//right
-		// 	return 4;
-		// }
-		// else {
-		// 	return x;
-		// }
 		if (keysDown[upKey.value]) {//up
 			return 1;
 		}
@@ -367,45 +472,45 @@ $(document).ready(function () {
 		lblScore.value = score;
 		lblTime.value = time_elapsed;
 		lblLives.value = lives;
-		for (var i = 0; i < 10; i++) {
-			for (var j = 0; j < 10; j++) {
+		for (var i = 0; i < 15; i++) {
+			for (var j = 0; j < 15; j++) {
 				var center = new Object();
-				center.x = i * 60 + 30;
-				center.y = j * 60 + 30;
+				center.x = i * 40 + 20;
+				center.y = j * 40 + 20;
 				//draw cherries
 				if (cherries_board[i][j] == 5) {
-					context.drawImage(cherries_img, center.x - 30, center.y - 30, cherries_img.width / 15, cherries_img.height / 15);
+					context.drawImage(cherries_img, center.x - 20, center.y - 20, cherries_img.width / 19, cherries_img.height / 19);
 				}
 				//draw monsters
 				else if (monster_board[i][j] == 3 && counter_monsters == num_monsters && counter_monsters > 0) {
-					context.drawImage(monster1, center.x - 30, center.y - 30, monster1.width / 11, monster1.height / 11);
+					context.drawImage(monster1, center.x - 20, center.y - 20, monster1.width / 13, monster1.height / 13);
 					counter_monsters--;
 				}
 				else if (monster_board[i][j] == 3 && counter_monsters == num_monsters - 1 && counter_monsters > 0) {
-					context.drawImage(monster2, center.x - 30, center.y - 30, monster2.width / 11, monster2.height / 11);
+					context.drawImage(monster2, center.x - 20, center.y - 20, monster2.width / 13, monster2.height / 13);
 					counter_monsters--;
 				}
 				else if (monster_board[i][j] == 3 && counter_monsters == num_monsters - 2 && counter_monsters > 0) {
-					context.drawImage(monster3, center.x - 30, center.y - 30, monster3.width / 11, monster3.height / 11);
+					context.drawImage(monster3, center.x - 20, center.y - 20, monster3.width / 13, monster3.height / 13);
 					counter_monsters--;
 				}
 				else if (monster_board[i][j] == 3 && counter_monsters == num_monsters - 3 && counter_monsters > 0) {
-					context.drawImage(monster4, center.x - 30, center.y - 30, monster4.width / 11, monster4.height / 11);
+					context.drawImage(monster4, center.x - 20, center.y - 20, monster4.width / 13, monster4.height / 13);
 					counter_monsters--;
 				}
 				else if (board[i][j] == 2) {//packman draw
 					context.beginPath();
 					if (x == 1) {
-						context.arc(center.x, center.y, 30, 1.65 * Math.PI, 3.35 * Math.PI);
+						context.arc(center.x, center.y, 20, 1.65 * Math.PI, 3.35 * Math.PI);
 					}
 					else if (x == 2) {
-						context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI);
+						context.arc(center.x, center.y, 20, 0.65 * Math.PI, 0.35 * Math.PI);
 					}
 					else if (x == 3) {
-						context.arc(center.x, center.y, 30, 1.15 * Math.PI, 2.85 * Math.PI);
+						context.arc(center.x, center.y, 20, 1.15 * Math.PI, 2.85 * Math.PI);
 					}
 					else {
-						context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI);
+						context.arc(center.x, center.y, 20, 0.15 * Math.PI, 1.85 * Math.PI);
 
 					}
 
@@ -414,11 +519,11 @@ $(document).ready(function () {
 					context.fill();
 					context.beginPath();
 					if (x == 1 || x == 2) {
-						context.arc(center.x + 12.5, center.y, 5, 0, 2 * Math.PI);
+						context.arc(center.x + 12.5, center.y, 3, 0, 2 * Math.PI);
 
 					}
 					else {
-						context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI);
+						context.arc(center.x + 5, center.y - 12.5, 3, 0, 2 * Math.PI);
 
 					}
 					context.fillStyle = "black"; //color
@@ -426,7 +531,7 @@ $(document).ready(function () {
 
 				} else if (board[i][j] == 1) {//food draw
 					context.beginPath();
-					context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+					context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
 					context.fillStyle = color5; //color
 					context.fill();
 					context.fillStyle = "white"; //color
@@ -435,24 +540,24 @@ $(document).ready(function () {
 				}
 					else if (board[i][j] == 6) {//food draw
 						context.beginPath();
-						context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+						context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
 						context.fillStyle = color15; //color
 						context.fill();
 						context.fillStyle = "white"; //color
 						context.font = "bold 10px Arial";
-						context.fillText("15", center.x-5, center.y+3);
+						context.fillText("15", center.x-5.5, center.y+3);
 					}
 					else if (board[i][j] == 7) {//food draw
 						context.beginPath();
-						context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+						context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
 						context.fillStyle = color25; //color
 						context.fill();
 						context.fillStyle = "white"; //color
 						context.font = "bold 10px Arial";
-						context.fillText("25", center.x-5, center.y+3);
+						context.fillText("25", center.x-5.5, center.y+3);
 				} else if (board[i][j] == 4) {//wal draw
 					context.beginPath();
-					context.rect(center.x - 30, center.y - 30, 60, 60);
+					context.rect(center.x - 20, center.y - 20, 40, 40);
 					context.fillStyle = "grey"; //color
 					context.fill();
 				}
@@ -461,17 +566,6 @@ $(document).ready(function () {
 
 	}
 
-	function clear_intervals() {
-		while (intervals.length > 0) {
-			clearInterval(intervals.pop());
-		}
-		// clearInterval(interval);
-		// clearInterval(monsters_interval);
-		// if (!ate_cherries) {
-		// 	clearInterval(cherries_interval);
-		// }
-
-	}
 
 	function set_intervals() {
 		// interval = setInterval(UpdatePosition, 145);
@@ -496,7 +590,7 @@ $(document).ready(function () {
 			}
 		}
 		if (x == 2) {
-			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+			if (shape.j < 14 && board[shape.i][shape.j + 1] != 4) {
 				shape.j++;
 			}
 		}
@@ -506,13 +600,19 @@ $(document).ready(function () {
 			}
 		}
 		if (x == 4) {
-			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+			if (shape.i < 14 && board[shape.i + 1][shape.j] != 4) {
 				shape.i++;
 			}
 		}
 		//ate food
 		if (board[shape.i][shape.j] == 1) {
-			score++;
+			score = score+5;
+		}
+		if (board[shape.i][shape.j] == 6) {
+			score = score+15;
+		}
+		if (board[shape.i][shape.j] == 7) {
+			score = score+25;
 		}
 		//ate cherries
 		if (cherries_board[shape.i][shape.j] == 5) {
@@ -525,30 +625,34 @@ $(document).ready(function () {
 		//ate monster
 		if (monster_board[shape.i][shape.j] == 3) {
 			clear_intervals();
-			failure_flag = true;
+			//failure_flag = true;
 			setTimeout(failure, 1500)
 
 
 		}
 		board[shape.i][shape.j] = 2;//update packman position
 		var currentTime = new Date();
-		time_elapsed = (currentTime - start_time) / 1000;
-		if (failure_flag) {
-			time_elapsed = time_elapsed + 1.5;
-		}
-		if (score >= 20 && time_elapsed <= 10) {
-			pac_color = "green";
-		}
+		time_elapsed = parseInt((currentTime - start_time) / 1000);
+		time_elapsed = timer - time_elapsed;
+
 		if (lives == 0) {
-			//Draw();
-			//window.clearInterval(interval);
+			Draw();
 			clear_intervals();
 			gameInProgress = false;
 			window.alert("Loser!");
 		}
-		else if (score >= 50) {
-			//Draw();
-			//window.clearInterval(interval);
+		else if(time_elapsed==0){
+			Draw();
+			clear_intervals();
+			if(score < 100){
+				window.alert("You are better than "+score+" points!");
+			}
+			else{
+				window.alert("Winner!!!");
+			}
+		}
+		else if (score >= 300) {
+			Draw();
 			clear_intervals();
 			gameInProgress = false;
 			window.alert("Game completed");
@@ -589,7 +693,7 @@ $(document).ready(function () {
 			}
 		}
 		else if (cherries_position == 2) {
-			if (cherries.j < 9 && board[cherries.i][cherries.j + 1] != 4 && monster_board[cherries.i][cherries.j + 1] != 3) {
+			if (cherries.j < 14 && board[cherries.i][cherries.j + 1] != 4 && monster_board[cherries.i][cherries.j + 1] != 3) {
 				cherries_board[cherries.i][cherries.j] = 0;
 				cherries.j++;
 				not_move_cherries = false;
@@ -603,7 +707,7 @@ $(document).ready(function () {
 			}
 		}
 		else if (cherries_position == 4) {
-			if (cherries.i < 9 && board[cherries.i + 1][cherries.j] != 4 && monster_board[cherries.i + 1][cherries.j] != 3) {
+			if (cherries.i < 14 && board[cherries.i + 1][cherries.j] != 4 && monster_board[cherries.i + 1][cherries.j] != 3) {
 				cherries_board[cherries.i][cherries.j] = 0;
 				cherries.i++;
 				not_move_cherries = false;
@@ -627,7 +731,7 @@ $(document).ready(function () {
 					}
 				}
 				else {
-					if (monsters_array[monster].j < 9 && board[monsters_array[monster].i][monsters_array[monster].j + 1] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
+					if (monsters_array[monster].j < 14 && board[monsters_array[monster].i][monsters_array[monster].j + 1] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
 						monsters_array[monster].j++;
 						not_move_monster = false;
 					}
@@ -641,7 +745,7 @@ $(document).ready(function () {
 					}
 				}
 				else {
-					if (monsters_array[monster].i < 9 && board[monsters_array[monster].i + 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
+					if (monsters_array[monster].i < 14 && board[monsters_array[monster].i + 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
 						monsters_array[monster].i++;
 						not_move_monster = false;
 					}
@@ -653,26 +757,26 @@ $(document).ready(function () {
 
 	}
 	function clear_monsters() {
-		for (let i = 0; i < 10; i++) {
-			for (let j = 0; j < 10; j++) {
+		for (let i = 0; i < 15; i++) {
+			for (let j = 0; j < 15; j++) {
 				if (i == 0 && j == 0) {
 					monsters_array[0].i = 0;
 					monsters_array[0].j = 0;
 					monster_board[monsters_array[0].i][monsters_array[0].j] = 3;
 				}
-				else if (num_monsters > 1 && (i == 0 && j == 9)) {
+				else if (num_monsters > 1 && (i == 0 && j == 14)) {
 					monsters_array[1].i = 0;
-					monsters_array[1].j = 9;
+					monsters_array[1].j = 14;
 					monster_board[monsters_array[1].i][monsters_array[1].j] = 3;
 				}
-				else if (num_monsters > 2 && (i == 9 && j == 0)) {
-					monsters_array[2].i = 9;
+				else if (num_monsters > 2 && (i == 14 && j == 0)) {
+					monsters_array[2].i = 14;
 					monsters_array[2].j = 0;
 					monster_board[monsters_array[2].i][monsters_array[2].j] = 3;
 				}
-				else if (num_monsters > 3 && (i == 9 && j == 9)) {
-					monsters_array[3].i = 9;
-					monsters_array[3].j = 9;
+				else if (num_monsters > 3 && (i == 14 && j == 14)) {
+					monsters_array[3].i = 14;
+					monsters_array[3].j = 14;
 					monster_board[monsters_array[3].i][monsters_array[3].j] = 3;
 				}
 				else {

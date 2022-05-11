@@ -35,7 +35,19 @@ $(function () {
         return this.optional(element)
             || value >= 50
             && value <= 90;
-    }, 'Your food balls need to be greater than 50 and smaller then 90.')
+    }, 'Your food balls must be greater than 50 and smaller then 90.')
+
+    $.validator.addMethod('monstersnumcons', function (value, element) {
+        return this.optional(element)
+            || value >= 1
+            && value <= 4;
+    }, 'Your monsters number must be between 1 and 4.')
+
+    $.validator.addMethod('mingametime', function (value, element) {
+        return this.optional(element)
+            || value >= 60
+            && value <= 120;
+    }, 'Your timer must be between 60 and 120 seconds.')
     
 
     $("#registerForm").validate({
@@ -70,7 +82,8 @@ $(function () {
             },
             birthday:
             {
-                required: true
+                required: true,
+                
             }
 
         },
@@ -123,6 +136,18 @@ $(function () {
             {
                 required: true,
                 foodNumcons: true
+            },
+            monstersnum:
+            {
+                required: true,
+                monstersnumcons: true
+
+            },
+            gametime:
+            {
+                required: true,
+                mingametime: true
+
             }
         }
     });
