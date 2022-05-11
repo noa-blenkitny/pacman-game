@@ -58,16 +58,20 @@ $(function () {
         rules: {
             userName:
             {
-                required: true
+                required: true,
+                //maybe to add non whitespace? dosent say so in the instrunctions but its rational
+                //nowhitespace : true 
             },
             email: {
                 required: true,
-                email: true,
+                email: true
                 // remote: "http://localhost:3000/inputValidator"
             },
             password: {
                 required: true,
-                strongPassword: true
+                strongPassword: true,
+                //maybe to add non whitespace? dosent say so in the instrunctions but its rational
+               // nowhitespace: true,
             },
 
             firstName: {
@@ -82,8 +86,7 @@ $(function () {
             },
             birthday:
             {
-                required: true,
-                
+                required: true                
             }
 
         },
@@ -106,7 +109,7 @@ $(function () {
                 required: true
             },
             password: {
-                required: true,
+                required: true
             }
         }
     });
@@ -119,6 +122,7 @@ $(function () {
             upkey:
             {
                 required: true
+                
             },
             downkey:
             {

@@ -20,9 +20,6 @@ var time_elapsed;
 var x;
 
 //intervals
-//var interval;
-//var cherries_interval;
-//var monsters_interval;
 var intervals = [];
 
 //setting var
@@ -40,11 +37,6 @@ var timer = 60;
 //flags
 var not_move_cherries;
 var ate_cherries;
-var failure_flag;
-var gameInProgress = false;
-//images
-// const cherries_img = new Image();
-// cherries_img.src = '/images/cherries.png';
 
 var monster1;
 var monster2;
@@ -69,6 +61,7 @@ var registerDiv;
 var loginDiv;
 var users = {};
 var pass;
+
 function clear_intervals() {
 	while (intervals.length > 0) {
 		clearInterval(intervals.pop());
@@ -155,6 +148,8 @@ function handleRegister(event) {
         let form = event.target.form;
         let user = form.elements.userName.value;
         let pass = form.elements.password.value;
+
+	
         if (users[user] != null) {
             alert("Username already exists in the system");
         }
@@ -283,9 +278,10 @@ $(document).ready(function () {
 			$("#settingGame").hide();
 			$("#gameDiv").show();
 			let form = event.target.form;
-        	food_num  = form.elements.foodnum.value;
-			num_monsters = form.elements.monstersnum.value;
-			timer = form.elements.gametime.value;
+			//parse int round down to the nearest integer, is that ok?
+        	food_num  = parseInt(form.elements.foodnum.value);
+			num_monsters = parseInt(form.elements.monstersnum.value);
+			timer =parseInt( form.elements.gametime.value);
 			color5 = form.elements.color5.value;
 			color15 = form.elements.color15.value;
 			color25 = form.elements.color25.value;
@@ -297,7 +293,6 @@ $(document).ready(function () {
 	function Start() {
 		//initial board
 		clear_intervals();
-		gameInProgress = true;
 		board = new Array();
 		shape = new Object();
 		shape.i = 0;
@@ -579,7 +574,6 @@ $(document).ready(function () {
 	}
 
 	function UpdatePosition() {
-		failure_flag = false;
 
 
 		board[shape.i][shape.j] = 0;
@@ -625,7 +619,6 @@ $(document).ready(function () {
 		//ate monster
 		if (monster_board[shape.i][shape.j] == 3) {
 			clear_intervals();
-			//failure_flag = true;
 			setTimeout(failure, 1500)
 
 
@@ -638,10 +631,9 @@ $(document).ready(function () {
 		if (lives == 0) {
 			Draw();
 			clear_intervals();
-			gameInProgress = false;
 			window.alert("Loser!");
 		}
-		else if(time_elapsed==0){
+		else if(time_elapsed <= 0){
 			Draw();
 			clear_intervals();
 			if(score < 100){
@@ -654,7 +646,6 @@ $(document).ready(function () {
 		else if (score >= 300) {
 			Draw();
 			clear_intervals();
-			gameInProgress = false;
 			window.alert("Game completed");
 		}
 		else {
@@ -672,6 +663,7 @@ $(document).ready(function () {
 		shape.j = empty_cell[1];
 		clear_monsters();
 		lives--;
+		
 		set_intervals();
 
 	}
@@ -719,39 +711,33 @@ $(document).ready(function () {
 
 	function updateMonsterPosition() {
 		for (let monster = 0; monster < monsters_array.length; monster++) {
-			//let not_move_monster = true;
-			//while (not_move_monster) {
+
 			monster_board[monsters_array[monster].i][monsters_array[monster].j] = 0;
 			let monster_direction = getRandomInt(1, 3);
 			if (monster_direction == 1) {
 				if (shape.j - monsters_array[monster].j <= 0) {
 					if (monsters_array[monster].j > 0 && board[monsters_array[monster].i][monsters_array[monster].j - 1] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
 						monsters_array[monster].j--;
-						not_move_monster = false;
 					}
 				}
 				else {
-					if (monsters_array[monster].j < 14 && board[monsters_array[monster].i][monsters_array[monster].j + 1] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
+					if (monsters_array[monster].j < 14 && board[monsters_array[monster].i][monsters_array[monster].j + 1] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j + 1] != 3) {
 						monsters_array[monster].j++;
-						not_move_monster = false;
 					}
 				}
 			}
 			else {
 				if (shape.i - monsters_array[monster].i <= 0) {
-					if (monsters_array[monster].i > 0 && board[monsters_array[monster].i - 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
+					if (monsters_array[monster].i > 0 && board[monsters_array[monster].i - 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i - 1][monsters_array[monster].j ] != 3) {
 						monsters_array[monster].i--;
-						not_move_monster = false;
 					}
 				}
 				else {
-					if (monsters_array[monster].i < 14 && board[monsters_array[monster].i + 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i][monsters_array[monster].j - 1] != 3) {
+					if (monsters_array[monster].i < 14 && board[monsters_array[monster].i + 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i + 1][monsters_array[monster].j] != 3) {
 						monsters_array[monster].i++;
-						not_move_monster = false;
 					}
 				}
 			}
-			//}
 			monster_board[monsters_array[monster].i][monsters_array[monster].j] = 3;
 		}
 
