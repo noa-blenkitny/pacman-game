@@ -28,6 +28,16 @@ $(function () {
             && /[a-z]/i.test(value);
     }, 'Your password must be at least 6 characters long and contain at least one number and one char\'.')
 
+
+
+
+    $.validator.addMethod('foodNumcons', function (value, element) {
+        return this.optional(element)
+            || value >= 50
+            && value <= 90;
+    }, 'Your food balls need to be greater than 50 and smaller then 90.')
+    
+
     $("#registerForm").validate({
         onsubmit: false,
         onclick: false,
@@ -87,4 +97,34 @@ $(function () {
             }
         }
     });
+    $("#settingForm").validate({
+        onsubmit: false,
+        onclick: false,
+        onkeyup: false,
+        onfocusout: false,
+        rules: {
+            upkey:
+            {
+                required: true
+            },
+            downkey:
+            {
+                required: true
+            },
+            leftkey:
+            {
+                required: true
+            },
+            rightkey:
+            {
+                required: true
+            },
+            foodnum:
+            {
+                required: true,
+                foodNumcons: true
+            }
+        }
+    });
+
 });

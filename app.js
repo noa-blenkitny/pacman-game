@@ -7,7 +7,7 @@ var num_monsters = 4;
 var counter_monsters;
 var monsters_array;
 var cherries;
-
+alert("refresh");
 //boards
 var board;
 var monster_board;
@@ -24,6 +24,17 @@ var x;
 //var cherries_interval;
 //var monsters_interval;
 var intervals;
+
+//setting var
+var food_num;
+var color5;
+var color15;
+var color25;
+
+//food typs
+var food_25;
+var food_5;
+var food_15;
 
 //flags
 var not_move_cherries;
@@ -56,16 +67,26 @@ monster4.src = '/images/monster5.png'
 // monster3.src = '/images/monster3.png'
 // const monster4 = new Image();
 // monster4.src = '/images/monster4.png'
+var registerBtn;
+var loginBtn;
+var welocmeDiv;
+var registerDiv;
+var loginDiv;
+var users = {};
+var pass;
 
 $(document).ready(function () {
 	context = canvas.getContext("2d");
 	//images
 
 	//settingDiv
-	lstartGameBtn = document.getElementById('StartGame');
+	lstartGameBtn = document.getElementById('submitSetting');
 	lstartGameBtn.onclick = StartGame;
 	newGameBtn = document.getElementById('newGameBtn');
 	newGameBtn.onclick = startNewGame;
+	randomSetBtn = document.getElementById('randomSetting');
+	randomSetBtn.onclick = randomSetting;
+	//document.getElementById('randomSetting').addEventListener('click', randomSetting);
 
 	//keys input
 	upKey = document.getElementById('keyUp');
@@ -77,6 +98,19 @@ $(document).ready(function () {
 	leftKey.addEventListener('keyup', displayKeyPressed);
 	rightKey.addEventListener('keyup', displayKeyPressed);
 
+	function randomSetting(){
+		let form = event.target.form;
+		let random_foof_num = getRandomInt(50,91);
+        form.elements.foodnum.value = random_foof_num;
+		form.elements.upkey.value = 38;
+		form.elements.downkey.value = 40;
+		form.elements.rightkey.value = 39;
+		form.elements.leftkey.value = 37;
+		form.elements.color5.value = generateRandomColor();
+		form.elements.color15.value = generateRandomColor();
+		form.elements.color25.value = generateRandomColor();
+	}
+
 
 	function displayKeyPressed() {
 		var keyCode = ('which' in event) ? event.which : event.keyCode;
@@ -86,7 +120,16 @@ $(document).ready(function () {
 
 	}
 
-	// });
+	function generateRandomColor(){
+		let maxVal = 0xFFFFFF; // 16777215
+		let randomNumber = Math.random() * maxVal; 
+		randomNumber = Math.floor(randomNumber);
+		randomNumber = randomNumber.toString(16);
+		let randColor = randomNumber.padStart(6, 0);   
+		return `#${randColor.toUpperCase()}`
+	}
+	
+
 	function startNewGame() {
 
 		clear_intervals();
@@ -107,11 +150,24 @@ $(document).ready(function () {
 		$("#welcomeDiv").hide();
 		$("#loginDiv").hide();
 		$("#registerDiv").hide();
-		$("#settingGame").hide();
-		$("#gameDiv").show();
+		//$("#settingGame").hide();
+		//$("#gameDiv").show();
+
+		if ($("#settingForm").valid()) {
+			$("#settingGame").hide();
+			$("#gameDiv").show();
+			let form = event.target.form;
+        	food_num  = form.elements.foodnum.value;
+			color5 = form.elements.color5.value;
+			color15 = form.elements.color15.value;
+			color25 = form.elements.color25.value;
+			Start();
+		}
+
+
 		// clear_intervals();
 		//setTimeout(start,0);
-		Start();
+		//Start();
 	}
 
 
@@ -134,7 +190,10 @@ $(document).ready(function () {
 		// x=4;
 		pac_color = "yellow";
 		var cnt = 100;
-		var food_remain = 50;
+		var food_remain = food_num;
+		food_25 = parseInt(0.1*food_remain);
+		food_15 = parseInt(0.3*food_remain);
+		food_5 = food_remain - food_25 - food_15;
 		var pacman_remain = 1;
 		//initial monsters
 		for (let k = 0; k < num_monsters; k++) {
@@ -193,34 +252,39 @@ $(document).ready(function () {
 					board[i][j] = 0;
 					cherries_board[i][j] = 0;
 				}
-				else {
-					var randomNum = Math.random();
-					if (randomNum <= (1.0 * food_remain) / cnt) {
-						food_remain--;
-						board[i][j] = 1;//food
-						monster_board[i][j] = 0;
-						cherries_board[i][j] = 0;
-					} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
-						shape.i = i;
-						shape.j = j;
-						pacman_remain--;
-						board[i][j] = 2;//packman
-						monster_board[i][j] = 0;
-						cherries_board[i][j] = 0;
-					} else {
+			 else {
 						board[i][j] = 0; //empty
 						monster_board[i][j] = 0;
 						cherries_board[i][j] = 0;
 
 					}
-					cnt--;
+					
 				}
 			}
-		}
 		//makes random food
-		while (food_remain > 0) {
-			var emptyCell = findRandomEmptyCell(board);
-			board[emptyCell[0]][emptyCell[1]] = 1;
+		if(pacman_remain > 0 ){
+			let emptyCell_pacman = findRandomEmptyCell(board);
+			board[emptyCell_pacman[0]][emptyCell_pacman[1]] = 2;
+			shape.i = emptyCell_pacman[0];
+			shape.j = emptyCell_pacman[1];
+			pacman_remain--;
+		}
+		while (food_5 > 0) {
+			let emptyCell_5 = findRandomEmptyCell(board);
+			board[emptyCell_5[0]][emptyCell_5[1]] = 1;
+			food_5--;
+			food_remain--;
+		}
+		while (food_15 > 0) {
+			let emptyCell_15 = findRandomEmptyCell(board);
+			board[emptyCell_15[0]][emptyCell_15[1]] = 6;
+			food_15--;
+			food_remain--;
+		}
+		while (food_25 > 0) {
+			let emptyCell_25 = findRandomEmptyCell(board);
+			board[emptyCell_25[0]][emptyCell_25[1]] = 7;
+			food_25--;
 			food_remain--;
 		}
 		keysDown = {};
@@ -363,8 +427,29 @@ $(document).ready(function () {
 				} else if (board[i][j] == 1) {//food draw
 					context.beginPath();
 					context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-					context.fillStyle = "black"; //color
+					context.fillStyle = color5; //color
 					context.fill();
+					context.fillStyle = "white"; //color
+                	context.font = "bold 10px Arial";
+                	context.fillText("5", center.x-3, center.y+3);
+				}
+					else if (board[i][j] == 6) {//food draw
+						context.beginPath();
+						context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+						context.fillStyle = color15; //color
+						context.fill();
+						context.fillStyle = "white"; //color
+						context.font = "bold 10px Arial";
+						context.fillText("15", center.x-5, center.y+3);
+					}
+					else if (board[i][j] == 7) {//food draw
+						context.beginPath();
+						context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+						context.fillStyle = color25; //color
+						context.fill();
+						context.fillStyle = "white"; //color
+						context.font = "bold 10px Arial";
+						context.fillText("25", center.x-5, center.y+3);
 				} else if (board[i][j] == 4) {//wal draw
 					context.beginPath();
 					context.rect(center.x - 30, center.y - 30, 60, 60);

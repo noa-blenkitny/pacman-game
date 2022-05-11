@@ -107,16 +107,29 @@
     </div>
   </div>
 
+<!-- Setting Div -->
 <div id = "settingGame"  >
+  <form id = "settingForm" autocomplete="off">
   <p>Enter your Up key</p>
-  <input type="text" id="keyUp">
+  <input name="upkey" type="text" id="keyUp">
   <p>Enter your Down key</p>
-  <input type="text" id="keyDown" >
+  <input name="downkey" type="text" id="keyDown">
   <p>Enter your Left key</p>
-  <input type="text" id="keyLeft" >
+  <input name="leftkey" type="text" id="keyLeft">
   <p>Enter your Right key</p>
-  <input type="text" id="keyRight" >
-  <button class="tablinks" id= "StartGame">Start Game</button>
+  <input name="rightkey" type="text" id="keyRight">
+  <p>Enter food number</p>
+  <input name="foodnum" type="number" id="foodnum">
+  <p>Enter 5 points food color</p>
+  <input name="color5" type="color" id="color5">
+  <p>Enter 15 points food color</p>
+  <input name="color15" type="color" id="color15">
+  <p>Enter 25 points food color</p>
+  <input name="color25" type="color" id="color25">
+  <input id = "submitSetting" type = "button" value="New Game" />
+  <input id = "randomSetting" type = "button" value="Random Setting" />
+</form>
+
 </div>
 <!-- GameDiv -->
       <div id="gameDiv">

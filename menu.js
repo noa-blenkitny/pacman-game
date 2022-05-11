@@ -43,31 +43,51 @@ $(document).ready(function () {
 
 });
 
+function clear_intervals() {
+    while (intervals.length > 0) {
+        clearInterval(intervals.pop());
+    }
 
+}
 
 //TODO:: in the display remember to hide all divs as we progress
 function displayRegisterDiv() {
 
+    if(gameInProgress){
+        clear_intervals();     
+        gameInProgress = false;
+    }
     $("#welcomeDiv").hide();
     $("#loginDiv").hide();
     $("#gameDiv").hide();
+    $("#settingGame").hide();
 
     $("#registerDiv").show();
 }
 
 function displayLoginDiv() {
+    if(gameInProgress){
+        clear_intervals();
+        gameInProgress = false;
+    }
     $("#welcomeDiv").hide();
     $("#registerDiv").hide();
     $("#gameDiv").hide();
+    $("#settingGame").hide();
 
     $("#loginDiv").show();
 }
 
 function displayWelcomeDiv() {
+    if(gameInProgress){
+        clear_intervals();
+        gameInProgress = false;
+    }
     $("#registerDiv").hide();
     $("#loginDiv").hide();
     $("#gameDiv").hide();
     $("#AboutDiv").hide();
+    $("#settingGame").hide();
 
     $("#welcomeDiv").show();
 }
@@ -87,6 +107,7 @@ function handleRegister(event) {
     }
 
 }
+
 
 function handleLogin(event) {
 
