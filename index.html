@@ -2,18 +2,18 @@
 <html>
   <head>
     <script src="./jquery-3.4.1.slim.min.js"></script>
-	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
-
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <script type="text/javascript" src="./app.js"></script>
     <!-- <script type="text/javascript" src="./menu.js"></script> -->
-	<script type="text/javascript" src="./validation.js"></script>
+    <script type="text/javascript" src="./validation.js"></script>
 
-  <!-- modals scripts -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
+    <!-- modals scripts -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link
@@ -31,11 +31,18 @@
         <li><a href="#">Login</a></li>
         <li><a href="#" class="far fa-question-circle">About</a></li>
       </ul> -->
-        <button class="tablinks" id= "menuWelcomeBtn">Welcome</button>
-        <button class="tablinks" id= "menuRegisterBtn">Register</button>
-        <button class="tablinks" id="menuLoginBtn">Login</button>     
-        <button type="button" class="btn btn-info btn-lg" data-keyboard="true" data-toggle="modal" data-target="#myModal">About</button>
-      
+      <button class="tablinks" id="menuWelcomeBtn">Welcome</button>
+      <button class="tablinks" id="menuRegisterBtn">Register</button>
+      <button class="tablinks" id="menuLoginBtn">Login</button>
+      <button
+        type="button"
+        class="btn btn-info btn-lg"
+        data-keyboard="true"
+        data-toggle="modal"
+        data-target="#myModal"
+      >
+        About
+      </button>
     </div>
     <div id="content">
       <div id="welcomeDiv">
@@ -45,120 +52,148 @@
       </div>
       <div id="registerDiv">
         <form id="registerForm">
-
-        <label>Username</label>
-        <input name="userName" type="text" placeholder="Enter username" />
-        <br />
-        <label>Password</label>
-        <input name="password" type="text" placeholder="Enter password" />
-        <br />
-        <label>First name</label>
-        <input name="firstName" type="text" placeholder="Enter first name" />
-		<br />
-		<label>Last name</label>
-        <input name="lastName" type="text" placeholder="Enter last name" />
-		<br />
-        <label>E-mail</label>
-        <input name="email" type="email" placeholder="Enter email" />
-		<br />
-        <label>Birthday</label>
-        <input name="birthday" type="date" />
-		<br />
-		<input id = "submitRegister" type = "button" value="Register" />
-
-      </form>
-    </div>
+          <label>Username</label>
+          <input name="userName" type="text" placeholder="Enter username" />
+          <br />
+          <label>Password</label>
+          <input name="password" type="text" placeholder="Enter password" />
+          <br />
+          <label>First name</label>
+          <input name="firstName" type="text" placeholder="Enter first name" />
+          <br />
+          <label>Last name</label>
+          <input name="lastName" type="text" placeholder="Enter last name" />
+          <br />
+          <label>E-mail</label>
+          <input name="email" type="email" placeholder="Enter email" />
+          <br />
+          <label>Birthday</label>
+          <input name="birthday" type="date" />
+          <br />
+          <input id="submitRegister" type="button" value="Register" />
+        </form>
+      </div>
       <div id="loginDiv">
+        <form id="loginForm">
+          <label>Username</label>
+          <input name="userName" type="text" placeholder="Enter username" />
+          <br />
+          <label>Password</label>
+          <input name="password" type="text" placeholder="Enter password" />
+          <br />
+          <!-- <input id = "submitLogin" type = "submit" value="Login"/> -->
+          <input id="submitLogin" type="button" value="Login" />
 
-      <form id="loginForm" >
+          <!-- <button id = "submitLogin"  value="Login"></button> -->
+        </form>
+      </div>
 
-			<label>Username</label>
-			<input name="userName" type="text" placeholder="Enter username" />
-			<br />
-			<label>Password</label>
-			<input name="password" type="text" placeholder="Enter password" />
-			<br />
-			<!-- <input id = "submitLogin" type = "submit" value="Login"/> -->
-      			<input id = "submitLogin" type = "button" value="Login"/>
-
-      			<!-- <button id = "submitLogin"  value="Login"></button> -->
-          </form>
-
-		</div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex='-1' role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      
-    </div>
-  </div>
 
-<!-- Setting Div -->
-<div id = "settingGame"  >
-  <form id = "settingForm" autocomplete="off">
-  <p>Enter your Up key</p>
-  <input name="upkey" type="text" id="keyUp">
-  <p>Enter your Down key</p>
-  <input name="downkey" type="text" id="keyDown">
-  <p>Enter your Left key</p>
-  <input name="leftkey" type="text" id="keyLeft">
-  <p>Enter your Right key</p>
-  <input name="rightkey" type="text" id="keyRight">
-  <p>Enter food number</p>
-  <input name="foodnum" type="number" id="foodnum">
-  <p>Enter monsters number</p>
-  <input name="monstersnum" type="number" id="monstersnum">
-  <p>Enter game time</p>
-  <input name="gametime" type="number" id="gametime">
-  <p>Enter 5 points food color</p>
-  <input name="color5" type="color" id="color5">
-  <p>Enter 15 points food color</p>
-  <input name="color15" type="color" id="color15">
-  <p>Enter 25 points food color</p>
-  <input name="color25" type="color" id="color25">
-  <input id = "submitSetting" type = "button" value="New Game" />
-  <input id = "randomSetting" type = "button" value="Random Setting" />
-</form>
+      <!-- Setting Div -->
+      <div id="settingGame">
+        <form id="settingForm" autocomplete="off">
+          <p>Enter your Up key</p>
+          <input name="upkey" type="text" id="keyUp" />
+          <p>Enter your Down key</p>
+          <input name="downkey" type="text" id="keyDown" />
+          <p>Enter your Left key</p>
+          <input name="leftkey" type="text" id="keyLeft" />
+          <p>Enter your Right key</p>
+          <input name="rightkey" type="text" id="keyRight" />
+          <p>Enter food number</p>
+          <input name="foodnum" type="number" id="foodnum" />
+          <p>Enter monsters number</p>
+          <input name="monstersnum" type="number" id="monstersnum" />
+          <p>Enter game time</p>
+          <input name="gametime" type="number" id="gametime" />
+          <p>Enter 5 points food color</p>
+          <input name="color5" type="color" id="color5" />
+          <p>Enter 15 points food color</p>
+          <input name="color15" type="color" id="color15" />
+          <p>Enter 25 points food color</p>
+          <input name="color25" type="color" id="color25" />
+          <input id="submitSetting" type="button" value="New Game" />
+          <input id="randomSetting" type="button" value="Random Setting" />
+        </form>
+      </div>
+      <!-- GameDiv -->
+      <div id="gameAndSettings">
+        <div id="gameDiv">
 
-</div>
-<!-- GameDiv -->
-      <div id="gameDiv">
-        <div id="score">
-          <label for="lblScore">SCORE:</label>
-          <input id="lblScore" type="text" />
+          <div id="currUser">
+            <label for="lblUser">Pacman Name: </label>
+            <input id="lblUser" type="text" />
+          </div>
+          <div id="score">
+            <label for="lblScore">SCORE:</label>
+            <input id="lblScore" type="text" />
+          </div>
+          <div id="time">
+            <label for="lblTime">TIME:</label>
+            <input id="lblTime" type="text" />
+          </div>
+          <div id="lives">
+            <label for="lblLives">LIVES:</label>
+            <input id="lblLives" type="text" />
+          </div>
+          <div id="game">
+            <canvas id="canvas" height="600" width="600">
+              <h1 id= "title"></h1>
+            </canvas>
+          </div>
+          <button id="newGameBtn">New Game</button>
+          <!-- <audio id="sound"><source src="/sounds/theme.mp3" type="audio/wav">
+          </audio> -->
+          <button id="playMusicBtn" onclick="play_music()">Play Music</button>
+          <button id="stopMusicBtn" onclick="stop_music()">Stop Music</button>
         </div>
-        <div id="time">
-          <label for="lblTime">TIME:</label>
-          <input id="lblTime" type="text" />
+        <div id="showSettings">
+          <label>Up:</label>
+          <p id="upP"></p>
+          <label>Down:</label>
+          <p id="downP"></p>
+          <label>Right:</label>
+          <p id="rightP"></p>
+          <label>Left:</label>
+          <p id="leftP"></p>
+          <label>Number of Food:</label>
+          <p id="foodP"></p>
+          <label>Number of Monsters:</label>
+          <p id="monstersP"></p>
+          <label>Game Time:</label>
+          <p id="timeP"></p>
         </div>
-        <div id="lives">
-          <label for="lblLives">LIVES:</label>
-          <input id="lblLives" type="text" />
-        </div>
-        <div id="game">
-          <canvas id="canvas" height="600" width="600"></canvas>
-        </div>
-        <button id="newGameBtn">New Game</button>
       </div>
     </div>
 
     <div id="footer"></div>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
-	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/additional-methods.min.js"></script>
-
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/additional-methods.min.js"></script>
   </body>
 </html>

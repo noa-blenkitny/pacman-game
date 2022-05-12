@@ -2,6 +2,8 @@
 var context;
 var lives;
 var shape;
+var food_remain
+
 //monsters
 var num_monsters;
 var counter_monsters;
@@ -32,12 +34,13 @@ var color25;
 var food_25;
 var food_5;
 var food_15;
-var timer = 60;
+var timer;
 
 //flags
+var numPillEaten;
 var not_move_cherries;
 var ate_cherries;
-
+var musicOn = false;
 var monster1;
 var monster2;
 var monster3;
@@ -53,7 +56,17 @@ monster3 = new Image();
 monster3.src = '/images/monster3.png'
 monster4 = new Image();
 monster4.src = '/images/monster5.png'
-
+clock_img = new Image();
+clock_img.src = '/images/clock.png'
+heart_img = new Image();
+heart_img.src = '/images/heart.png'
+pill_img = new Image();
+pill_img.src = '/images/pill.png'
+var pill;
+var sound = new Audio('/sounds/theme.mp3');
+sound.loop = true;
+sound.autoplay = false;
+var failure_sound = new Audio('/sounds/death.mp3')
 var registerBtn;
 var loginBtn;
 var welocmeDiv;
@@ -61,6 +74,8 @@ var registerDiv;
 var loginDiv;
 var users = {};
 var pass;
+var currUser;
+
 
 function clear_intervals() {
 	while (intervals.length > 0) {
@@ -70,37 +85,34 @@ function clear_intervals() {
 }
 
 $(document).ready(function () {
-    // menu buttons
-    loginMenuBtn = document.getElementById('menuLoginBtn');
-    welocmeMenuBtn = document.getElementById('menuWelcomeBtn');
-    registerMenuBtn = document.getElementById('menuRegisterBtn');
+	// menu buttons
+	loginMenuBtn = document.getElementById('menuLoginBtn');
+	welocmeMenuBtn = document.getElementById('menuWelcomeBtn');
+	registerMenuBtn = document.getElementById('menuRegisterBtn');
 
+	// sound = document.getElementById('sound');
+	registerMenuBtn.onclick = displayRegisterDiv;
+	loginMenuBtn.onclick = displayLoginDiv;
+	welocmeMenuBtn.onclick = displayWelcomeDiv;
 
-    registerMenuBtn.onclick = displayRegisterDiv;
-    loginMenuBtn.onclick = displayLoginDiv;
-    welocmeMenuBtn.onclick = displayWelcomeDiv;
+	//welcome buttons
+	registerBtn = document.getElementById('registerBtn');
+	loginBtn = document.getElementById('loginBtn');
+	registerBtn.onclick = displayRegisterDiv;
+	loginBtn.onclick = displayLoginDiv;
 
-    //welcome buttons
-    registerBtn = document.getElementById('registerBtn');
-    loginBtn = document.getElementById('loginBtn');
-    registerBtn.onclick = displayRegisterDiv;
-    loginBtn.onclick = displayLoginDiv;
+	//welcome window
+	welocmeDiv = document.getElementById('welcomeDiv');
 
-    //welcome window
-    welocmeDiv = document.getElementById('welcomeDiv');
+	//registeration window
+	registerDiv = document.getElementById('registerDiv');
+	document.getElementById('submitRegister').addEventListener('click', handleRegister);
 
-    //registeration window
-    registerDiv = document.getElementById('registerDiv');
-    // document.getElementById('registerForm').addEventListener('submit',handleRegister);
-    document.getElementById('submitRegister').addEventListener('click', handleRegister);
+	users["k"] = "k";
 
-    // sessionStorage.setItem("k","k"); //initial user
-    users["k"] = "k";
-
-    //login window
-    loginDiv = document.getElementById('loginDiv');
-    // document.getElementById('loginForm').addEventListener('submit',handleLogin);
-    document.getElementById('submitLogin').addEventListener('click', handleLogin);
+	//login window
+	loginDiv = document.getElementById('loginDiv');
+	document.getElementById('submitLogin').addEventListener('click', handleLogin);
 
 
 
@@ -110,83 +122,87 @@ $(document).ready(function () {
 //TODO:: in the display remember to hide all divs as we progress
 function displayRegisterDiv() {
 
-    clear_intervals();     
+	clear_intervals();
+	sound.pause();
 
-    $("#welcomeDiv").hide();
-    $("#loginDiv").hide();
-    $("#gameDiv").hide();
-    $("#settingGame").hide();
+	$("#welcomeDiv").hide();
+	$("#loginDiv").hide();
+	$("#gameAndSettings").hide();
+	$("#settingGame").hide();
 
-    $("#registerDiv").show();
+	$("#registerDiv").show();
 }
 
 function displayLoginDiv() {
-        clear_intervals();
+	clear_intervals();
+	sound.pause();
 
-    $("#welcomeDiv").hide();
-    $("#registerDiv").hide();
-    $("#gameDiv").hide();
-    $("#settingGame").hide();
+	$("#welcomeDiv").hide();
+	$("#registerDiv").hide();
+	$("#gameAndSettings").hide();
+	$("#settingGame").hide();
 
-    $("#loginDiv").show();
+	$("#loginDiv").show();
 }
 
 function displayWelcomeDiv() {
 
-    clear_intervals();
+	clear_intervals();
 
-    $("#registerDiv").hide();
-    $("#loginDiv").hide();
-    $("#gameDiv").hide();
-    $("#AboutDiv").hide();
-    $("#settingGame").hide();
+	sound.pause();
 
-    $("#welcomeDiv").show();
+	$("#registerDiv").hide();
+	$("#loginDiv").hide();
+	$("#gameAndSettings").hide();
+	$("#AboutDiv").hide();
+	$("#settingGame").hide();
+
+	$("#welcomeDiv").show();
 }
 function handleRegister(event) {
-    if ($("#registerForm").valid()) {
-        let form = event.target.form;
-        let user = form.elements.userName.value;
-        let pass = form.elements.password.value;
+	if ($("#registerForm").valid()) {
+		let form = event.target.form;
+		let user = form.elements.userName.value;
+		let pass = form.elements.password.value;
 
-	
-        if (users[user] != null) {
-            alert("Username already exists in the system");
-        }
-        else {
-            users[user] = pass;
-            $("#registerDiv").hide();
-            $("#loginDiv").show();
-        }
-    }
+
+		if (users[user] != null) {
+			alert("Username already exists in the system");
+		}
+		else {
+			users[user] = pass;
+			$("#registerDiv").hide();
+			$("#loginDiv").show();
+		}
+	}
 
 }
 
 
 function handleLogin(event) {
 
-    if ($("#loginForm").valid()) {
+	if ($("#loginForm").valid()) {
 
-        let form = event.target.form;
+		let form = event.target.form;
 
-        let user = form.elements.userName.value;
-        let pass = form.elements.password.value;
-        // passInStorage = sessionStorage.getItem(user);
-        if (user in users) {
-            if (users[user] == pass) {
-                window.alert("yaayyyyyy")
-                $("#loginDiv").hide();
-                $("#settingGame").show();
-            }
-            else {
-                window.alert("wrong password")
-            }
-        }
-        else {
-            window.alert("wrong username")
+		let user = form.elements.userName.value;
+		let pass = form.elements.password.value;
+		// passInStorage = sessionStorage.getItem(user);
+		if (user in users) {
+			if (users[user] == pass) {
+				currUser = user;
+				$("#loginDiv").hide();
+				$("#settingGame").show();
+			}
+			else {
+				window.alert("wrong password")
+			}
+		}
+		else {
+			window.alert("wrong username")
 
-        }
-    }
+		}
+	}
 
 }
 
@@ -196,7 +212,6 @@ function handleLogin(event) {
 $(document).ready(function () {
 	context = canvas.getContext("2d");
 	//images
-
 	//settingDiv
 	lstartGameBtn = document.getElementById('submitSetting');
 	lstartGameBtn.onclick = StartGame;
@@ -216,19 +231,28 @@ $(document).ready(function () {
 	leftKey.addEventListener('keyup', displayKeyPressed);
 	rightKey.addEventListener('keyup', displayKeyPressed);
 
-	function randomSetting(){
+	//stop/play music
+	// stopMusicBtn = document.getElementById('stopMusicBtn');
+	// playMusicBtn = document.getElementById('playMusicBtn');
+	// stopMusicBtn.onclick = stop_music();
+	// playMusicBtn.onclick = play_music();
+
+
+
+	function randomSetting() {
 		clear_intervals();
 		let form = event.target.form;
-		let random_food_num = getRandomInt(50,91);
-		let random_mons_num = getRandomInt(1,5);
-		let random_timer = getRandomInt(60,121);
-        form.elements.foodnum.value = random_food_num;
+		let random_food_num = getRandomInt(50, 91);
+		let random_mons_num = getRandomInt(1, 5);
+		let random_timer = getRandomInt(60, 121);
+		form.elements.foodnum.value = random_food_num;
 		form.elements.monstersnum.value = random_mons_num;
 		form.elements.gametime.value = random_timer;
-		form.elements.upkey.value = 38;
-		form.elements.downkey.value = 40;
-		form.elements.rightkey.value = 39;
-		form.elements.leftkey.value = 37;
+		form.elements.upkey.value = "ArrowUp";
+		form.elements.downkey.value = "ArrowDown";
+		form.elements.rightkey.value = "ArrowRight";
+		form.elements.leftkey.value = "ArrowLeft";
+
 		form.elements.color5.value = generateRandomColor();
 		form.elements.color15.value = generateRandomColor();
 		form.elements.color25.value = generateRandomColor();
@@ -237,30 +261,34 @@ $(document).ready(function () {
 
 	function displayKeyPressed() {
 		var keyCode = ('which' in event) ? event.which : event.keyCode;
-		event.target.value = keyCode;
-		
+		// event.target.value = keyCode;
+		event.target.value = event.key;
+
+		// alert(event.key)
 		// return keyCode;
 
 	}
 
-	function generateRandomColor(){
+	function generateRandomColor() {
 		let maxVal = 0xFFFFFF; // 16777215
-		let randomNumber = Math.random() * maxVal; 
+		let randomNumber = Math.random() * maxVal;
 		randomNumber = Math.floor(randomNumber);
 		randomNumber = randomNumber.toString(16);
-		let randColor = randomNumber.padStart(6, 0);   
+		let randColor = randomNumber.padStart(6, 0);
 		return `#${randColor.toUpperCase()}`
 	}
-	
-	
-	
-	
+
+
+
+
 
 	function startNewGame() {
 
-			clear_intervals();
+		clear_intervals();
+		sound.pause();
 
-		document.getElementById('gameDiv').style.display = "none";
+
+		document.getElementById('gameAndSettings').style.display = "none";
 
 		document.getElementById('settingGame').style.display = "block";;
 
@@ -276,15 +304,17 @@ $(document).ready(function () {
 
 		if ($("#settingForm").valid()) {
 			$("#settingGame").hide();
-			$("#gameDiv").show();
+			$("#gameAndSettings").show();
 			let form = event.target.form;
 			//parse int round down to the nearest integer, is that ok?
-        	food_num  = parseInt(form.elements.foodnum.value);
+			food_num = parseInt(form.elements.foodnum.value);
 			num_monsters = parseInt(form.elements.monstersnum.value);
-			timer =parseInt( form.elements.gametime.value);
+			timer = parseInt(form.elements.gametime.value);
 			color5 = form.elements.color5.value;
 			color15 = form.elements.color15.value;
 			color25 = form.elements.color25.value;
+			// document.getElementById('upP').innerHTML = form.elements.upkey.value;
+			displaySettings();
 			Start();
 		}
 	}
@@ -293,10 +323,18 @@ $(document).ready(function () {
 	function Start() {
 		//initial board
 		clear_intervals();
+		sound.currentTime = 0;
+		sound.play();
+		musicOn = true;
 		board = new Array();
 		shape = new Object();
 		shape.i = 0;
 		shape.j = 0;
+		pill1 = new Object();
+		pill2 = new Object();
+		pill_array = new Array();
+		pill_array.push(pill1);
+		pill_array.push(pill2);
 		monster_board = new Array();
 		cherries_board = new Array();
 		monsters_array = new Array();
@@ -305,14 +343,13 @@ $(document).ready(function () {
 		cherries = new Object();
 		not_move_cherries = true;
 		ate_cherries = false;
-		// x=4;
 		pac_color = "yellow";
-		var cnt = 100;
-		var food_remain = food_num;
-		food_25 = parseInt(0.1*food_remain);
-		food_15 = parseInt(0.3*food_remain);
+		food_remain = food_num;
+		food_25 = parseInt(0.1 * food_remain);
+		food_15 = parseInt(0.3 * food_remain);
 		food_5 = food_remain - food_25 - food_15;
 		var pacman_remain = 1;
+		numPillEaten = 0;
 		//initial monsters
 		for (let k = 0; k < num_monsters; k++) {
 			monsters_array[k] = new Object();
@@ -370,62 +407,81 @@ $(document).ready(function () {
 					board[i][j] = 0;
 					cherries_board[i][j] = 0;
 				}
-			 else {
-						board[i][j] = 0; //empty
-						monster_board[i][j] = 0;
-						cherries_board[i][j] = 0;
+				else {
+					board[i][j] = 0; //empty
+					monster_board[i][j] = 0;
+					cherries_board[i][j] = 0;
 
-					}
-					
 				}
+
 			}
+		}
 		//makes random food
-		if(pacman_remain > 0 ){
+		if (pacman_remain > 0) {
 			let emptyCell_pacman = findRandomEmptyCell(board);
 			board[emptyCell_pacman[0]][emptyCell_pacman[1]] = 2;
 			shape.i = emptyCell_pacman[0];
 			shape.j = emptyCell_pacman[1];
 			pacman_remain--;
 		}
+		let emptyCell_extraTime = findRandomEmptyCell(board);
+		board[emptyCell_extraTime[0]][emptyCell_extraTime[1]] = 8; // time
+		let emptyCell_extraLife = findRandomEmptyCell(board);
+		board[emptyCell_extraLife[0]][emptyCell_extraLife[1]] = 9; // life
+		for (let pillIndex = 0; pillIndex < 2; pillIndex++) {
+			let emptyCell_pill = findRandomEmptyCell(board);
+			board[emptyCell_pill[0]][emptyCell_pill[1]] = 10; // pill
+			pill_array[pillIndex].i = emptyCell_pill[0];
+			pill_array[pillIndex].j = emptyCell_pill[1];
+		}
 		while (food_5 > 0) {
 			let emptyCell_5 = findRandomEmptyCell(board);
 			board[emptyCell_5[0]][emptyCell_5[1]] = 1;
 			food_5--;
-			food_remain--;
 		}
 		while (food_15 > 0) {
 			let emptyCell_15 = findRandomEmptyCell(board);
 			board[emptyCell_15[0]][emptyCell_15[1]] = 6;
 			food_15--;
-			food_remain--;
 		}
 		while (food_25 > 0) {
 			let emptyCell_25 = findRandomEmptyCell(board);
 			board[emptyCell_25[0]][emptyCell_25[1]] = 7;
 			food_25--;
-			food_remain--;
 		}
 		keysDown = {};
 		addEventListener(
 			"keydown",
 			function (e) {
-				keysDown[e.keyCode] = true;
+				keysDown[e.key] = true;
 			},
 			false
 		);
 		addEventListener(
 			"keyup",
 			function (e) {
-				keysDown[e.keyCode] = false;
+				keysDown[e.key] = false;
 			},
 			false
 		);
 		intervals.push(setInterval(updateCherriesPosition, 500));
 		intervals.push(setInterval(updateMonsterPosition, 500));
 		intervals.push(setInterval(UpdatePosition, 145));
+		intervals.push(setInterval(UpdatePillPosition, 2000));
 
 
 	}//end start
+
+	function displaySettings() {
+		// document.getElementById("upP").innerHTML = String.fromCharCode(parseInt(upKey.value,16))
+		document.getElementById("upP").innerHTML = upKey.value;
+		document.getElementById("downP").innerHTML = downKey.value;
+		document.getElementById("rightP").innerHTML = rightKey.value;
+		document.getElementById("leftP").innerHTML = leftKey.value;
+		document.getElementById("foodP").innerHTML = food_num;
+		document.getElementById("monstersP").innerHTML = num_monsters;
+		document.getElementById("timeP").innerHTML = timer;
+	}
 
 	function getRandomInt(min, max) {
 		min = Math.ceil(min);
@@ -467,6 +523,7 @@ $(document).ready(function () {
 		lblScore.value = score;
 		lblTime.value = time_elapsed;
 		lblLives.value = lives;
+		lblUser.value = currUser;
 		for (var i = 0; i < 15; i++) {
 			for (var j = 0; j < 15; j++) {
 				var center = new Object();
@@ -530,32 +587,45 @@ $(document).ready(function () {
 					context.fillStyle = color5; //color
 					context.fill();
 					context.fillStyle = "white"; //color
-                	context.font = "bold 10px Arial";
-                	context.fillText("5", center.x-3, center.y+3);
+					context.font = "bold 10px Arial";
+					context.fillText("5", center.x - 3, center.y + 3);
 				}
-					else if (board[i][j] == 6) {//food draw
-						context.beginPath();
-						context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
-						context.fillStyle = color15; //color
-						context.fill();
-						context.fillStyle = "white"; //color
-						context.font = "bold 10px Arial";
-						context.fillText("15", center.x-5.5, center.y+3);
-					}
-					else if (board[i][j] == 7) {//food draw
-						context.beginPath();
-						context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
-						context.fillStyle = color25; //color
-						context.fill();
-						context.fillStyle = "white"; //color
-						context.font = "bold 10px Arial";
-						context.fillText("25", center.x-5.5, center.y+3);
+				else if (board[i][j] == 6) {//food draw
+					context.beginPath();
+					context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
+					context.fillStyle = color15; //color
+					context.fill();
+					context.fillStyle = "white"; //color
+					context.font = "bold 10px Arial";
+					context.fillText("15", center.x - 5.5, center.y + 3);
+				}
+				else if (board[i][j] == 7) {//food draw
+					context.beginPath();
+					context.arc(center.x, center.y, 9, 0, 2 * Math.PI); // circle
+					context.fillStyle = color25; //color
+					context.fill();
+					context.fillStyle = "white"; //color
+					context.font = "bold 10px Arial";
+					context.fillText("25", center.x - 5.5, center.y + 3);
 				} else if (board[i][j] == 4) {//wal draw
 					context.beginPath();
 					context.rect(center.x - 20, center.y - 20, 40, 40);
 					context.fillStyle = "grey"; //color
 					context.fill();
 				}
+				else if (board[i][j] == 8) {//clock draw
+					context.drawImage(clock_img, center.x - 20, center.y - 20, clock_img.width / 14, clock_img.height / 14);
+
+				}
+				else if (board[i][j] == 9) {//clock draw
+					context.drawImage(heart_img, center.x - 20, center.y - 20, heart_img.width / 28, heart_img.height / 28);
+
+				}
+				else if (board[i][j] == 10) {//pill draw
+					context.drawImage(pill_img, center.x - 20, center.y - 20, pill_img.width / 80, pill_img.height / 80);
+
+				}
+
 			}
 		}
 
@@ -563,19 +633,14 @@ $(document).ready(function () {
 
 
 	function set_intervals() {
-		// interval = setInterval(UpdatePosition, 145);
-		// monsters_interval = setInterval(updateMonsterPosition, 500);
-		// if (!ate_cherries) {
-		// 	cherries_interval = setInterval(updateCherriesPosition, 500);
-		// }
 		intervals.push(setInterval(updateCherriesPosition, 500));
 		intervals.push(setInterval(updateMonsterPosition, 500));
 		intervals.push(setInterval(UpdatePosition, 145));
+		intervals.push(setInterval(UpdatePillPosition, 2000));
+
 	}
 
 	function UpdatePosition() {
-
-
 		board[shape.i][shape.j] = 0;
 		x = GetKeyPressed();
 		if (x == 1) {
@@ -600,17 +665,33 @@ $(document).ready(function () {
 		}
 		//ate food
 		if (board[shape.i][shape.j] == 1) {
-			score = score+5;
+			score = score + 5;
+			food_remain--;
 		}
 		if (board[shape.i][shape.j] == 6) {
-			score = score+15;
+			score = score + 15;
+			food_remain--;
+
 		}
 		if (board[shape.i][shape.j] == 7) {
-			score = score+25;
+			score = score + 25;
+			food_remain--;
+
+		}
+		if (board[shape.i][shape.j] == 8) {
+			timer = timer + 10;
+
+		}
+		if (board[shape.i][shape.j] == 9) {
+			lives++;
+
+		}
+		if (board[shape.i][shape.j] == 10) {
+			score = score + 100;
+			numPillEaten++;
 		}
 		//ate cherries
 		if (cherries_board[shape.i][shape.j] == 5) {
-			//window.clearInterval(cherries_interval);
 			ate_cherries = true;
 			cherries_board[cherries.i][cherries.j] = 0;
 			score += 50;
@@ -618,6 +699,10 @@ $(document).ready(function () {
 		}
 		//ate monster
 		if (monster_board[shape.i][shape.j] == 3) {
+			sound.pause();
+			if (musicOn) {
+				failure_sound.play();
+			}
 			clear_intervals();
 			setTimeout(failure, 1500)
 
@@ -631,22 +716,33 @@ $(document).ready(function () {
 		if (lives == 0) {
 			Draw();
 			clear_intervals();
+			context.font = "30px Arial";
+			context.fillText("Hello World", 10, 50);
+
 			window.alert("Loser!");
+			sound.pause();
+
 		}
-		else if(time_elapsed <= 0){
+		else if (time_elapsed <= 0) {
 			Draw();
 			clear_intervals();
-			if(score < 100){
-				window.alert("You are better than "+score+" points!");
+			sound.pause();
+			if (score < 100) {
+				window.alert("You are better than " + score + " points!");
 			}
-			else{
+			else {
 				window.alert("Winner!!!");
+				// $("#title").innerHTML = "Winner!!!";
+				// $("#title").show();
 			}
 		}
-		else if (score >= 300) {
+		else if (food_remain <= 0) {
+
+			sound.pause();
+
 			Draw();
 			clear_intervals();
-			window.alert("Game completed");
+			window.alert("Winner!!!");
 		}
 		else {
 			Draw();
@@ -655,6 +751,7 @@ $(document).ready(function () {
 
 
 	function failure() {
+
 		board[shape.i][shape.j] = 0;
 		score -= 10;
 		let empty_cell = findRandomEmptyCell(board)
@@ -663,8 +760,41 @@ $(document).ready(function () {
 		shape.j = empty_cell[1];
 		clear_monsters();
 		lives--;
-		
+		if (lives != 0 && musicOn) {
+			setTimeout(play_music, 400);
+		}
 		set_intervals();
+
+	}
+	function UpdatePillPosition() {
+		if (numPillEaten == 2) {
+			return
+		}
+		else 
+		{
+			let move = getRandomInt(1, 5);
+			board[pill1.i][pill1.j] = 0;
+			if (move == 1) 
+			{
+				let cell = findRandomEmptyCell(board);
+				board[cell[0]][cell[1]] = 10;
+				pill1.i = cell[0];
+				pill1.j = cell[1];
+			}
+			if (numPillEaten == 0) 
+			{
+				let move2 = getRandomInt(1, 5);
+				board[pill2.i][pill2.j] = 0;
+				if (move2 == 1) {
+					let cell2 = findRandomEmptyCell(board);
+					
+					board[cell2[0]][cell2[1]] = 10;
+					pill2.i = cell2[0];
+					pill2.j = cell2[1];
+				}
+			}
+
+		}
 
 	}
 
@@ -728,7 +858,7 @@ $(document).ready(function () {
 			}
 			else {
 				if (shape.i - monsters_array[monster].i <= 0) {
-					if (monsters_array[monster].i > 0 && board[monsters_array[monster].i - 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i - 1][monsters_array[monster].j ] != 3) {
+					if (monsters_array[monster].i > 0 && board[monsters_array[monster].i - 1][monsters_array[monster].j] != 4 && monster_board[monsters_array[monster].i - 1][monsters_array[monster].j] != 3) {
 						monsters_array[monster].i--;
 					}
 				}
@@ -773,4 +903,16 @@ $(document).ready(function () {
 		}
 
 	}
+
+
 });
+function play_music() {
+	sound.play();
+	musicOn = true;
+
+}
+function stop_music() {
+	sound.pause();
+	musicOn = false;
+
+}

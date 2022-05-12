@@ -28,7 +28,7 @@
     border-top: 1px solid rgba(255,255,255,.1);
     transition: .4s;
   }
-  #gameDiv
+  #gameAndSettings
   {
       display: none;
   }
@@ -65,4 +65,9 @@
   }
   #settingGame{
     display: none;
+  }
+  #title
+  {
+    display: none;
+    align-items: center;
   }
