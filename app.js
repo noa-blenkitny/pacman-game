@@ -41,11 +41,15 @@ var numPillEaten;
 var not_move_cherries;
 var ate_cherries;
 var musicOn = false;
+
+//imgs
 var monster1;
 var monster2;
 var monster3;
 var monster4;
 var cherries_img;
+var wall_img
+
 cherries_img = new Image();
 cherries_img.src = '/images/cherries.png';
 monster1 = new Image();
@@ -62,6 +66,9 @@ heart_img = new Image();
 heart_img.src = '/images/heart.png'
 pill_img = new Image();
 pill_img.src = '/images/pill.png'
+wall_img = new Image();
+wall_img.src = '/images/wall.png'
+
 var pill;
 var sound = new Audio('/sounds/theme.mp3');
 sound.loop = true;
@@ -608,10 +615,20 @@ $(document).ready(function () {
 					context.font = "bold 10px Arial";
 					context.fillText("25", center.x - 5.5, center.y + 3);
 				} else if (board[i][j] == 4) {//wal draw
-					context.beginPath();
+					
+					//context.drawImage(wall_img,center.x - 20, center.y - 20, wall_img.width / 19, wall_img.height / 19);
+					 context.beginPath();
+					// context.strokeStyle = "white"; //color
+					// context.strokeRect(center.x - 20, center.y - 20, 30, 30);
+					
 					context.rect(center.x - 20, center.y - 20, 40, 40);
-					context.fillStyle = "grey"; //color
+					context.fillStyle = "black";
 					context.fill();
+					context.lineWidth = 3;
+					context.strokeStyle = "#1919ff";
+					context.stroke();
+
+
 				}
 				else if (board[i][j] == 8) {//clock draw
 					context.drawImage(clock_img, center.x - 20, center.y - 20, clock_img.width / 14, clock_img.height / 14);
@@ -716,8 +733,6 @@ $(document).ready(function () {
 		if (lives == 0) {
 			Draw();
 			clear_intervals();
-			context.font = "30px Arial";
-			context.fillText("Hello World", 10, 50);
 
 			window.alert("Loser!");
 			sound.pause();

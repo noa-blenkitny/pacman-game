@@ -67,41 +67,42 @@
         <button id="loginBtn">Login</button>
       </div>
       <div id="registerDiv">
-        <h2>Register</h2>
         <form id="registerForm">
+          <h2>Register</h2>
           <label>Username</label>
-          <input name="userName" type="text" placeholder="Enter username" />
+          <input name="userName" type="text"/>
           <br />
           <label>Password</label>
-          <input name="password" type="text" placeholder="Enter password" />
+          <input name="password" type="text" />
           <br />
           <label>First name</label>
-          <input name="firstName" type="text" placeholder="Enter first name" />
+          <input name="firstName" type="text" />
           <br />
           <label>Last name</label>
-          <input name="lastName" type="text" placeholder="Enter last name" />
+          <input name="lastName" type="text" />
           <br />
           <label>E-mail</label>
-          <input name="email" type="email" placeholder="Enter email" />
+          <input name="email" type="email"/>
           <br />
           <label>Birthday</label>
           <input name="birthday" type="date" />
+          <br />
           <br />
           <input id="submitRegister" type="button" value="Register" />
         </form>
       </div>
       <div id="loginDiv">
         <form id="loginForm">
-          <label>Username</label>
-          <input name="userName" type="text" placeholder="Enter username" />
+          <h2>Login</h2>
+          <label class="formlable">Username</label>
+          <input name="userName" type="text"/>
           <br />
-          <label>Password</label>
-          <input name="password" type="text" placeholder="Enter password" />
+          <label class="formlable">Password</label>
+          <input name="password" type="text" />
           <br />
-          <!-- <input id = "submitLogin" type = "submit" value="Login"/> -->
+          <br />
           <input id="submitLogin" type="button" value="Login" />
 
-          <!-- <button id = "submitLogin"  value="Login"></button> -->
         </form>
       </div>
 
@@ -135,26 +136,43 @@
       <!-- Setting Div -->
       <div id="settingGame">
         <form id="settingForm" autocomplete="off">
-          <p>Enter your Up key</p>
+          <h2>Settings</h2>
+          <label>Enter your Up key</label>
           <input name="upkey" type="text" id="keyUp" />
-          <p>Enter your Down key</p>
+          <label>Enter your Down key</label>
           <input name="downkey" type="text" id="keyDown" />
-          <p>Enter your Left key</p>
+          <label>Enter your Left key</label>
           <input name="leftkey" type="text" id="keyLeft" />
-          <p>Enter your Right key</p>
+          <label>Enter your Right key</label>
           <input name="rightkey" type="text" id="keyRight" />
-          <p>Enter food number</p>
+          <label>Enter food number</label>
+          <br />
           <input name="foodnum" type="number" id="foodnum" />
-          <p>Enter monsters number</p>
+          <br />
+          <br />
+          <label>Enter monsters number</label>
+          <br />
           <input name="monstersnum" type="number" id="monstersnum" />
-          <p>Enter game time</p>
+          <br />
+          <br />
+          <label>Enter game time</label>
+          <br />
           <input name="gametime" type="number" id="gametime" />
-          <p>Enter 5 points food color</p>
-          <input name="color5" type="color" id="color5" />
-          <p>Enter 15 points food color</p>
-          <input name="color15" type="color" id="color15" />
-          <p>Enter 25 points food color</p>
-          <input name="color25" type="color" id="color25" />
+          <br />
+          <br />
+          <label>Enter 5 points food color</label>
+          <input name="color5" type="color" id="color5" value="#ffddf4"/>
+          <br />
+          <br />
+          <label>Enter 15 points food color</label>
+          <input name="color15" type="color" id="color15" value="#add1ff"/>
+          <br />
+          <br />
+          <label>Enter 25 points food color</label>
+          <input name="color25" type="color" id="color25" value="#b2ffbf"/>
+          <br />
+          <br />
+          <br />
           <input id="submitSetting" type="button" value="New Game" />
           <input id="randomSetting" type="button" value="Random Setting" />
         </form>
@@ -162,9 +180,9 @@
       <!-- GameDiv -->
       <div id="gameAndSettings">
         <div id="gameDiv">
-
+          <div id = "game_lables">
           <div id="currUser">
-            <label for="lblUser">Pacman Name: </label>
+            <label for="lblUser">NAME: </label>
             <input id="lblUser" type="text" />
           </div>
           <div id="score">
@@ -179,6 +197,7 @@
             <label for="lblLives">LIVES:</label>
             <input id="lblLives" type="text" />
           </div>
+        </div>
           <div id="game">
             <canvas id="canvas" height="600" width="600">
               <h1 id= "title"></h1>
