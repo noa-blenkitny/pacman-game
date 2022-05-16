@@ -1,3 +1,6 @@
+body{
+  background: #000;
+}
 #menu
 {
     margin: 0;
@@ -13,6 +16,7 @@
 #content
 {
     padding-left: 250px;
+    padding-top: 80px;
 }
 #menu ul a{
     text-decoration: none;
@@ -35,10 +39,13 @@
   #welcomeDiv
   {
       display: block;
-  }
-  #registerBtn
-  {
-      color: #000;
+      display: block;
+      margin: auto;
+      width: 50%;
+      top: 50%;
+      -ms-transform: translateY(+50%);
+      transform: translateY(+50%);
+
   }
   #registerDiv{
     display: none;
@@ -59,8 +66,6 @@
 
   #AboutDiv{
     display: none;
-    /* display: flex; */
-
 
   }
   #settingGame{
@@ -71,3 +76,99 @@
     display: none;
     align-items: center;
   }
+ #header{
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background: #000;
+
+ }
+
+
+#textbox {
+  display: flex;
+  color: white;
+  padding-top: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#logo_img{
+  padding-bottom: 20px;
+  padding-left: 10px;
+  float: left;
+  width: 260px;
+  height: 80px;
+
+}
+
+.aligncenter {
+  color: rgb(253, 253, 129);
+  padding-top: 8px;
+  float: left;
+  width:90%;
+  text-align:right;
+}
+.alignright {
+ padding-top: 20px;
+ float: left;
+ width:90%;
+ text-align:right;
+ font-size: 10px;
+}
+button{
+  padding: 15px 32px;
+  text-align: center;
+  background-color: #000;
+  color:#ffff46 ;
+  border: 2px solid #ffff46;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  font-family: 'Press Start 2P', cursive;
+  margin: 40px 0;
+  margin-right: 50px;
+
+}
+
+button:hover{
+  background: #ffff46;
+  border-radius: 5px;
+  color: #050801;
+  border: #ffff46;
+  box-shadow: 0 0 5px #ffff46,
+              0 0 25px #ffff46,
+              0 0 50px #ffff46,
+              0 0 200px #ffff46;
+   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+}
+
+#about_btn{
+  padding: 15px 32px;
+  text-align: center;
+  background-color: #000;
+  color:#ffff46 ;
+  border: 2px solid #ffff46;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  font-family: 'Press Start 2P', cursive;
+  margin: 40px 0;
+  margin-right: 50px;
+}
+#about_btn:hover{
+  background: #ffff46;
+  border-radius: 5px;
+  color: #050801;
+  border: #ffff46;
+  box-shadow: 0 0 5px #ffff46,
+              0 0 25px #ffff46,
+              0 0 50px #ffff46,
+              0 0 200px #ffff46;
+   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+}
