@@ -125,7 +125,6 @@ $(document).ready(function () {
 });
 
 
-//TODO:: in the display remember to hide all divs as we progress
 function displayRegisterDiv() {
 
 	clear_intervals();
@@ -190,10 +189,8 @@ function handleLogin(event) {
 	if ($("#loginForm").valid()) {
 
 		let form = event.target.form;
-
 		let user = form.elements.userName.value;
 		let pass = form.elements.password.value;
-		// passInStorage = sessionStorage.getItem(user);
 		if (user in users) {
 			if (users[user] == pass) {
 				currUser = user;
@@ -225,7 +222,6 @@ $(document).ready(function () {
 	newGameBtn.onclick = startNewGame;
 	randomSetBtn = document.getElementById('randomSetting');
 	randomSetBtn.onclick = randomSetting;
-	//document.getElementById('randomSetting').addEventListener('click', randomSetting);
 
 	//keys input
 	upKey = document.getElementById('keyUp');
@@ -236,14 +232,6 @@ $(document).ready(function () {
 	downKey.addEventListener('keyup', displayKeyPressed);
 	leftKey.addEventListener('keyup', displayKeyPressed);
 	rightKey.addEventListener('keyup', displayKeyPressed);
-
-	//stop/play music
-	// stopMusicBtn = document.getElementById('stopMusicBtn');
-	// playMusicBtn = document.getElementById('playMusicBtn');
-	// stopMusicBtn.onclick = stop_music();
-	// playMusicBtn.onclick = play_music();
-
-
 
 	function randomSetting() {
 		clear_intervals();
@@ -267,12 +255,7 @@ $(document).ready(function () {
 
 	function displayKeyPressed() {
 		var keyCode = ('which' in event) ? event.which : event.keyCode;
-		// event.target.value = keyCode;
 		event.target.value = event.key;
-
-		// alert(event.key)
-		// return keyCode;
-
 	}
 
 	function generateRandomColor() {
@@ -292,10 +275,7 @@ $(document).ready(function () {
 
 		clear_intervals();
 		sound.pause();
-
-
 		document.getElementById('gameAndSettings').style.display = "none";
-
 		document.getElementById('settingGame').style.display = "block";;
 
 	}
@@ -312,14 +292,12 @@ $(document).ready(function () {
 			$("#settingGame").hide();
 			$("#gameAndSettings").show();
 			let form = event.target.form;
-			//parse int round down to the nearest integer, is that ok?
 			food_num = parseInt(form.elements.foodnum.value);
 			num_monsters = parseInt(form.elements.monstersnum.value);
 			timer = parseInt(form.elements.gametime.value);
 			color5 = form.elements.color5.value;
 			color15 = form.elements.color15.value;
 			color25 = form.elements.color25.value;
-			// document.getElementById('upP').innerHTML = form.elements.upkey.value;
 			displaySettings();
 			Start();
 		}
@@ -365,7 +343,6 @@ $(document).ready(function () {
 			board[i] = new Array();
 			monster_board[i] = new Array();
 			cherries_board[i] = new Array();
-			//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 			for (var j = 0; j < 15; j++) {
 				if (
 					(i == 3 && j == 3) ||
@@ -498,7 +475,6 @@ $(document).ready(function () {
 	}//end start
 
 	function displaySettings() {
-		// document.getElementById("upP").innerHTML = String.fromCharCode(parseInt(upKey.value,16))
 		document.getElementById("upP").innerHTML = upKey.value;
 		document.getElementById("downP").innerHTML = downKey.value;
 		document.getElementById("rightP").innerHTML = rightKey.value;
@@ -640,11 +616,7 @@ $(document).ready(function () {
 					context.lineWidth = 3;
 					context.strokeStyle = "#1919ff";
 					context.stroke();
-					// context.beginPath();
-					// context.moveTo(center.x - 20,center.y - 20);
-					// context.lineTo(center.x + 20,center.y - 20);
-					// context.strokeStyle="black";
-					// context.stroke();
+
 				}
 				else if (board[i][j] == 8) {//clock draw
 					context.drawImage(clock_img, center.x - 15, center.y - 15, clock_img.width / 16, clock_img.height / 16);
@@ -762,8 +734,6 @@ $(document).ready(function () {
 			}
 			else {
 				window.alert("Winner!!!");
-				// $("#title").innerHTML = "Winner!!!";
-				// $("#title").show();
 			}
 		}
 		else if (food_remain <= 0) {
@@ -840,8 +810,7 @@ $(document).ready(function () {
 
 
 	function updateCherriesPosition() {
-		//not_move_cherries = true;
-		//while (not_move_cherries) {
+
 		if (ate_cherries) {
 			return;
 		}
@@ -875,7 +844,7 @@ $(document).ready(function () {
 				not_move_cherries = false;
 			}
 		}
-		//}
+		
 		cherries_board[cherries.i][cherries.j] = 5;//update cherries position
 	}
 

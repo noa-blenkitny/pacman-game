@@ -59,8 +59,7 @@ $(function () {
             userName:
             {
                 required: true,
-                //maybe to add non whitespace? dosent say so in the instrunctions but its rational
-                //nowhitespace : true 
+
             },
             email: {
                 required: true,
@@ -70,8 +69,7 @@ $(function () {
             password: {
                 required: true,
                 strongPassword: true,
-                //maybe to add non whitespace? dosent say so in the instrunctions but its rational
-               // nowhitespace: true,
+
             },
 
             firstName: {

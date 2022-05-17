@@ -1,19 +1,6 @@
-body{
+body {
   background: #000;
 }
-/* #menu
-{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    position: fixed;
-    left: 0;
-    top:0;
-    width: 250px;
-    height: 100%;
-    background: black;
-} */
-
 
 #menu {
   height: 100%;
@@ -27,105 +14,73 @@ body{
   padding-top: 20px;
   /* border: 2px solid #ffff46; */
   border-right: 1px solid #ffff46;
-  
 }
-#content
-{
-    padding-left: 250px;
-    padding-top: 80px;
+#content {
+  padding-left: 250px;
+  padding-top: 80px;
 }
-/* #menu ul a{
-    text-decoration: none;
-    display: block;
-    height: 100%;
-    width: 100%;
-    line-height: 65px;
-    font-size: 20px;
-    color: white;
-    padding-left: 40px;
-    box-sizing: border-box;
-    border-bottom: 1px solid black;
-    border-top: 1px solid rgba(255,255,255,.1);
-    transition: .4s;
-  } */
-  #menu button{
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #ffff46;
-    display: block;
-    background: none!important;
-    border: none;
-    text-align: center;
-    margin-left: 20px;
-    /* margin: auto; */
-    width: 50%;
 
-  }
-  #menu button:hover {
-    color: rgb(167, 166, 166);
-    /* background: rgb(123, 122, 122)!important; */
-    border: none;
-    box-shadow:none;
-   -webkit-box-reflect:unset;
-  }
-  #about_btn:active:focus{
-    color: rgb(167, 166, 166);
-    /* background: rgb(123, 122, 122)!important; */
-    border: none;
-    box-shadow:none;
-   -webkit-box-reflect:unset;
-  }
-  #about_btn:visited:focus {
-    color: #ffff46;
-    /* background: rgb(123, 122, 122)!important; */
-    border: none;
-    box-shadow:none;
-   -webkit-box-reflect:unset;
-  }
-  #gameAndSettings
-  {
-   
+#menu button {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffff46;
+  display: block;
+  background: none !important;
+  border: none;
+  text-align: center;
+  margin-left: 20px;
+  width: 50%;
+}
+#menu button:hover {
+  color: rgb(167, 166, 166);
+  border: none;
+  box-shadow: none;
+  -webkit-box-reflect: unset;
+}
+#about_btn:active:focus {
+  color: rgb(167, 166, 166);
+  border: none;
+  box-shadow: none;
+  -webkit-box-reflect: unset;
+}
+#about_btn:visited:focus {
+  color: #ffff46;
+  border: none;
+  box-shadow: none;
+  -webkit-box-reflect: unset;
+}
+#gameAndSettings {
+  display: none;
+}
+#welcomeDiv {
+  display: block;
+  margin: auto;
+  width: 50%;
+  top: 50%;
+  -ms-transform: translateY(+50%);
+  transform: translateY(+50%);
+}
+#registerDiv {
+  display: none;
+  justify-content: flex-start;
+}
+#loginDiv {
+  display: none;
+  justify-content: flex-start;
+}
 
-      display: none;
-      
-  }
-  #welcomeDiv
-  {
-      display: block;
-      margin: auto;
-      width: 50%;
-      top: 50%;
-      -ms-transform: translateY(+50%);
-      transform: translateY(+50%);
-
-  }
-  #registerDiv{
-    display: none;
-    /* display: flex; */
-	justify-content: flex-start;
-
-  }
-  #loginDiv{
-    display: none;
-    /* display: flex; */
-	justify-content: flex-start;
-
-  }
-
-  #AboutDiv{
-    display: none;
-
-  }
-  #settingGame{
-    display: none;
-  }
-  #title
-  {
-    display: none;
-    align-items: center;
-  }
- #header{
+#AboutDiv {
+  display: none;
+}
+#settingGame {
+  display: none;
+}
+#title {
+  display: none;
+  align-items: center;
+}
+#header {
   position: fixed;
   width: 100%;
   height: 80px;
@@ -134,106 +89,96 @@ body{
   left: 0;
   top: 0;
   background: #000;
-
- }
-
+}
 
 #textbox {
   display: flex;
-  color:  rgb(186, 186, 186);
+  color: rgb(186, 186, 186);
   padding-top: 20px;
   padding-right: 20px;
   font-size: 20px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
 }
 
-#logo_img{
+#logo_img {
   padding-bottom: 20px;
   padding-left: 10px;
   float: left;
   width: 260px;
   height: 80px;
-
 }
 
 .aligncenter {
   color: #ffff46;
   padding-top: 8px;
   float: left;
-  width:90%;
-  text-align:right;
+  width: 90%;
+  text-align: right;
 }
 .alignright {
- padding-top: 20px;
- float: left;
- width:90%;
- text-align:right;
+  padding-top: 20px;
+  float: left;
+  width: 90%;
+  text-align: right;
 
- font-size: 10px;
+  font-size: 10px;
 }
-button{
+button {
   padding: 15px 32px;
   text-align: center;
   background-color: #000;
-  color:#ffff46 ;
+  color: #ffff46;
   border: 2px solid #ffff46;
   display: inline-block;
   font-size: 14px;
   border-radius: 5px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   margin: 40px 0;
   margin-right: 50px;
-
 }
 
-button:hover{
+button:hover {
   background: #ffff46;
   border-radius: 5px;
   color: #050801;
   border: #ffff46;
-  box-shadow: 0 0 5px #ffff46,
-              0 0 25px #ffff46,
-              0 0 50px #ffff46,
-              0 0 200px #ffff46;
-   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+  box-shadow: 0 0 5px #ffff46, 0 0 25px #ffff46, 0 0 50px #ffff46,
+    0 0 200px #ffff46;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
-
-#about_btn{
+#about_btn {
   padding: 15px 32px;
   text-align: center;
   background-color: #000;
-  color:#ffff46 ;
+  color: #ffff46;
   border: 2px solid #ffff46;
   display: inline-block;
   font-size: 14px;
   border-radius: 5px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   margin: 40px 0;
   margin-right: 50px;
 }
-#about_btn:hover{
+#about_btn:hover {
   background: #ffff46;
   border-radius: 5px;
   color: #050801;
   border: #ffff46;
-  box-shadow: 0 0 5px #ffff46,
-              0 0 25px #ffff46,
-              0 0 50px #ffff46,
-              0 0 200px #ffff46;
-   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+  box-shadow: 0 0 5px #ffff46, 0 0 25px #ffff46, 0 0 50px #ffff46,
+    0 0 200px #ffff46;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
-form{
+form {
   margin: auto;
   width: 50%;
   top: 50%;
-  /* -ms-transform: translateY(+5%);
-  transform: translateY(+5%); */
   border-radius: 5px;
   background-color: #302e2e54;
   padding: 20px;
 }
 
-input[type=text], select {
+input[type="text"],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -242,7 +187,8 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-input[type=email], select {
+input[type="email"],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -251,7 +197,8 @@ input[type=email], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-input[type=date], select {
+input[type="date"],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -261,73 +208,69 @@ input[type=date], select {
   box-sizing: border-box;
   text-align: left;
 }
-input[type=button] {
+input[type="button"] {
   width: 30%;
   padding: 14px 20px;
   margin-left: 35%;
   text-align: center;
   background-color: #000;
-  color:#ffff46 ;
+  color: #ffff46;
   border: 2px solid #ffff46;
   display: inline-block;
   font-size: 14px;
   border-radius: 5px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
 }
 
-input[type=button]:hover {
-  /* background-color: #45a049; */
+input[type="button"]:hover {
   background: #ffff46;
   border-radius: 5px;
   color: #050801;
   border: #ffff46;
-  box-shadow: 0 0 5px #ffff46,
-              0 0 25px #ffff46,
-              0 0 50px #ffff46,
-              0 0 200px #ffff46;
-   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+  box-shadow: 0 0 5px #ffff46, 0 0 25px #ffff46, 0 0 50px #ffff46,
+    0 0 200px #ffff46;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
-form label{
+form label {
   text-align: left;
   color: white;
 }
-h2{
+h2 {
   text-align: center;
   color: white;
   font-weight: bold;
 }
-#settingForm input[type=button] {
+#settingForm input[type="button"] {
   width: 40%;
   padding: 14px 20px;
   margin-left: 4%;
   margin-right: 5%;
   text-align: center;
   background-color: #000;
-  color:#ffff46 ;
+  color: #ffff46;
   border: 2px solid #ffff46;
   display: inline-block;
   font-size: 14px;
   border-radius: 5px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
 }
-#settingForm input[type=button]:hover {
+#settingForm input[type="button"]:hover {
   background: #ffff46;
   border-radius: 5px;
   color: #050801;
   border: #ffff46;
-  box-shadow: 0 0 5px #ffff46,
-              0 0 25px #ffff46,
-              0 0 50px #ffff46,
-              0 0 200px #ffff46;
-   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+  box-shadow: 0 0 5px #ffff46, 0 0 25px #ffff46, 0 0 50px #ffff46,
+    0 0 200px #ffff46;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
-#game_lables{
+#game_lables {
   display: flex;
   padding-left: 15px;
   justify-content: space-between;
   max-width: 60%;
 }
-#game_lables input[type=text], select {
+#game_lables input[type="text"],
+select {
   width: 35%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -337,118 +280,104 @@ h2{
   box-sizing: border-box;
   color: #000;
 }
-#game_lables label{
+#game_lables label {
   text-align: left;
   color: white;
 }
-canvas{
+canvas {
   margin-left: 65px;
   margin-top: 3%;
   border: 5px double #1919ff;
   background: black;
 }
-#canvas_setting{
-  /* overflow: auto; */
+#canvas_setting {
   display: inline-flex;
-  /* width: fit-content; */
-  /* width: -moz-max-content; */
   overflow: auto;
-
-
-  /* overflow-x: auto; 
-  width:auto;
-    max-width: calc(100vh - 20px); */
-
 }
-#game{
+#game {
   float: left;
 }
-#showSettings{
+#showSettings {
   float: right;
   vertical-align: top;
   padding-left: 40px;
-  color: #ffff46ce;;
+  color: #ffff46ce;
   font-size: 15px;
   text-align: center;
 }
-#setting_head{
+#setting_head {
   color: rgb(186, 186, 186);
   text-decoration: overline;
-  text-decoration-color: #ffff46;;
-  font-family: 'Press Start 2P', cursive;
+  text-decoration-color: #ffff46;
+  font-family: "Press Start 2P", cursive;
 }
-.setting_lable{
+.setting_lable {
   color: rgb(186, 186, 186);
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 13px;
 }
-#footer{
+#footer {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  /* border-top: 0.5px solid #302e2e54; */
   background-color: black;
   text-align: center;
   color: #7e7e7ea4;
 }
-span{
+span {
   font-weight: bold;
 }
-h4{
+h4 {
   font-weight: bold;
-  color: #ffff46;;
-  /* margin-top: 6%; */
+  color: #ffff46;
   padding-top: 3%;
 }
-.modal-body{
+.modal-body {
   font-size: 15px;
   color: rgba(224, 224, 224, 0.721);
 }
-#about_img{
+#about_img {
   width: 180px;
-  height:50px ;
+  height: 50px;
   float: left;
   margin-top: 7%;
 }
-.modal-content{
+.modal-content {
   background: black;
   border: 2px solid #7e7e7ea4;
 }
-#close_btn{
+#close_btn {
   background-image: url(/images/close_btn.png) no-repeat;
   background-color: transparent;
   color: white;
 }
-#close_btn:hover{
+#close_btn:hover {
   background-color: rgba(0, 0, 0, 0.062);
 }
-#close_footer{
+#close_footer {
   padding: 10px 18px;
   text-align: center;
   background-color: #000;
-  color:#ffff46 ;
+  color: #ffff46;
   border: 2px solid #ffff46;
   display: inline-block;
   font-size: 14px;
   border-radius: 5px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   margin: 40px 0;
   margin-right: 50px;
-
 }
 
-#close_footer:hover{
+#close_footer:hover {
   background: #ffff46;
   border-radius: 5px;
   color: #050801;
   border: #ffff46;
-  box-shadow: 0 0 5px #ffff46,
-              0 0 25px #ffff46,
-              0 0 50px #ffff46,
-              0 0 200px #ffff46;
-   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+  box-shadow: 0 0 5px #ffff46, 0 0 25px #ffff46, 0 0 50px #ffff46,
+    0 0 200px #ffff46;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }
-#game_buttons{
+#game_buttons {
   margin-left: 2%;
 }
