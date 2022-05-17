@@ -66,8 +66,7 @@ heart_img = new Image();
 heart_img.src = '/images/heart.png'
 pill_img = new Image();
 pill_img.src = '/images/pill.png'
-wall_img = new Image();
-wall_img.src = '/images/wall.png'
+
 
 var pill;
 var sound = new Audio('/sounds/theme.mp3');
@@ -371,9 +370,28 @@ $(document).ready(function () {
 				if (
 					(i == 3 && j == 3) ||
 					(i == 3 && j == 4) ||
-					(i == 3 && j == 5) ||
+					(i == 2 && j == 4) ||
+					(i == 2 && j == 5) ||
 					(i == 6 && j == 1) ||
-					(i == 6 && j == 2)
+					(i == 6 && j == 2) ||
+					(i == 10 && j == 12) ||
+					(i == 9 && j == 12) ||
+					(i == 9 && j == 13) ||
+					(i == 9 && j == 11) ||
+					(i == 6 && j == 6) ||
+					(i == 5 && j == 6) ||
+					(i == 7 && j == 6) ||
+					(i == 7 && j == 5) ||
+					(i == 8 && j == 5) ||
+					(i == 2 && j == 11) ||
+					(i == 2 && j == 12) ||
+					(i == 3 && j == 12) ||
+					(i == 4 && j == 12) ||
+					(i == 12 && j == 3) ||
+					(i == 12 && j == 4) ||
+					(i == 12 && j == 2) ||
+					(i == 11 && j == 2) 
+				
 				) {
 					board[i][j] = 4;//wall
 					monster_board[i][j] = 0
@@ -615,34 +633,31 @@ $(document).ready(function () {
 					context.font = "bold 10px Arial";
 					context.fillText("25", center.x - 5.5, center.y + 3);
 				} else if (board[i][j] == 4) {//wal draw
-					
-					//context.drawImage(wall_img,center.x - 20, center.y - 20, wall_img.width / 19, wall_img.height / 19);
-					 context.beginPath();
-					// context.strokeStyle = "white"; //color
-					// context.strokeRect(center.x - 20, center.y - 20, 30, 30);
-					
+					context.beginPath();
 					context.rect(center.x - 20, center.y - 20, 40, 40);
 					context.fillStyle = "black";
 					context.fill();
 					context.lineWidth = 3;
 					context.strokeStyle = "#1919ff";
 					context.stroke();
-
-
+					// context.beginPath();
+					// context.moveTo(center.x - 20,center.y - 20);
+					// context.lineTo(center.x + 20,center.y - 20);
+					// context.strokeStyle="black";
+					// context.stroke();
 				}
 				else if (board[i][j] == 8) {//clock draw
-					context.drawImage(clock_img, center.x - 20, center.y - 20, clock_img.width / 14, clock_img.height / 14);
+					context.drawImage(clock_img, center.x - 15, center.y - 15, clock_img.width / 16, clock_img.height / 16);
 
 				}
-				else if (board[i][j] == 9) {//clock draw
+				else if (board[i][j] == 9) {//heart draw
 					context.drawImage(heart_img, center.x - 20, center.y - 20, heart_img.width / 28, heart_img.height / 28);
 
 				}
 				else if (board[i][j] == 10) {//pill draw
-					context.drawImage(pill_img, center.x - 20, center.y - 20, pill_img.width / 80, pill_img.height / 80);
+					context.drawImage(pill_img, center.x - 20, center.y - 20, pill_img.width / 85, pill_img.height / 85);
 
 				}
-
 			}
 		}
 
@@ -768,7 +783,17 @@ $(document).ready(function () {
 	function failure() {
 
 		board[shape.i][shape.j] = 0;
-		score -= 10;
+		if (score >=10)
+		{
+			score -= 10;
+		}
+		else
+		{
+			score = 0;
+		}
+		
+
+		
 		let empty_cell = findRandomEmptyCell(board)
 		monster_board[shape.i][shape.j] = 0;
 		shape.i = empty_cell[0];

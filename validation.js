@@ -86,7 +86,7 @@ $(function () {
             },
             birthday:
             {
-                required: true                
+                required: true  
             }
 
         },

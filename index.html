@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>PAC-MAN</title>
     <script src="./jquery-3.4.1.slim.min.js"></script>
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
     <script type="text/javascript" src="./app.js"></script>
-    <!-- <script type="text/javascript" src="./menu.js"></script> -->
     <script type="text/javascript" src="./validation.js"></script>
+    <link rel="icon" href="./images/title_img.png" type="image/png">
+
 
     <!-- modals scripts -->
     <link
@@ -36,12 +37,6 @@
     </div>
     </div>
     <div id="menu">
-      <!-- <ul>
-        <li><a href="#welcomeDiv">Welcome</a></li>
-        <li><a href="#registerDiv">Register</a></li>
-        <li><a href="#">Login</a></li>
-        <li><a href="#" class="far fa-question-circle">About</a></li>
-      </ul> -->
       <button class="tablinks" id="menuWelcomeBtn">Welcome</button>
       <button class="tablinks" id="menuRegisterBtn">Register</button>
       <button class="tablinks" id="menuLoginBtn">Login</button>
@@ -249,9 +244,11 @@
       </div>
       <br />
           <br />
+          <div id="game_buttons">
         <button id="playMusicBtn" onclick="play_music()">Play Music</button>
         <button id="stopMusicBtn" onclick="stop_music()">Stop Music</button>
         <button id="newGameBtn">New Game</button>
+      </div>
       </div>
     </div>
 

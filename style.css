@@ -85,7 +85,10 @@ body{
   }
   #gameAndSettings
   {
+   
+
       display: none;
+      
   }
   #welcomeDiv
   {
@@ -137,7 +140,7 @@ body{
 
 #textbox {
   display: flex;
-  color: white;
+  color:  rgb(186, 186, 186);
   padding-top: 20px;
   padding-right: 20px;
   font-size: 20px;
@@ -165,6 +168,7 @@ body{
  float: left;
  width:90%;
  text-align:right;
+
  font-size: 10px;
 }
 button{
@@ -339,12 +343,22 @@ h2{
 }
 canvas{
   margin-left: 65px;
+  margin-top: 3%;
   border: 5px double #1919ff;
   background: black;
 }
 #canvas_setting{
-  display: inline-block;
-  width: -moz-max-content;
+  /* overflow: auto; */
+  display: inline-flex;
+  /* width: fit-content; */
+  /* width: -moz-max-content; */
+  overflow: auto;
+
+
+  /* overflow-x: auto; 
+  width:auto;
+    max-width: calc(100vh - 20px); */
+
 }
 #game{
   float: left;
@@ -434,4 +448,7 @@ h4{
               0 0 50px #ffff46,
               0 0 200px #ffff46;
    -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+}
+#game_buttons{
+  margin-left: 2%;
 }
