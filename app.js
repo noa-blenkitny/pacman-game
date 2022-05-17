@@ -51,28 +51,28 @@ var cherries_img;
 var wall_img
 
 cherries_img = new Image();
-cherries_img.src = '/images/cherries.png';
+cherries_img.src = './images/cherries.png';
 monster1 = new Image();
-monster1.src = '/images/monster1.png';
+monster1.src = './images/monster1.png';
 monster2 = new Image();
-monster2.src = '/images/monster2.png'
+monster2.src = './images/monster2.png'
 monster3 = new Image();
-monster3.src = '/images/monster3.png'
+monster3.src = './images/monster3.png'
 monster4 = new Image();
-monster4.src = '/images/monster5.png'
+monster4.src = './images/monster5.png'
 clock_img = new Image();
-clock_img.src = '/images/clock.png'
+clock_img.src = './images/clock.png'
 heart_img = new Image();
-heart_img.src = '/images/heart.png'
+heart_img.src = './images/heart.png'
 pill_img = new Image();
-pill_img.src = '/images/pill.png'
+pill_img.src = './images/pill.png'
 
 
 var pill;
-var sound = new Audio('/sounds/theme.mp3');
+var sound = new Audio('./sounds/theme.mp3');
 sound.loop = true;
 sound.autoplay = false;
-var failure_sound = new Audio('/sounds/death.mp3')
+var failure_sound = new Audio('./sounds/death.mp3')
 var registerBtn;
 var loginBtn;
 var welocmeDiv;
