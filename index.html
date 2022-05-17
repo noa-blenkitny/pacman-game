@@ -112,16 +112,26 @@
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
+              <button id="close_btn" type="button" class="close" data-dismiss="modal">
                 &times;
               </button>
-              <h4 class="modal-title">Modal Header</h4>
+              <h4 class="modal-title">ABOUT</h4>
             </div>
             <div class="modal-body">
-              <p>Some text in the modal.</p>
+              <p><span>Submitted by: </span>Noa Blenkitny and Bar Golkrantz.<br />
+                <span>JQuery:</span> validator.<br />
+                <span>Template:</span> modal plugin.<br />
+                <span>Difficulties:</span> Understanding how timeout works and <br />
+                 synchronizing between all the intervals we made.<br />
+                 Making sure that when there are collisions between characters in the canvas, <br />
+                 there will be preservation of the two characters after moving.<br />
+                 Position items on the screen using css.
+              </p>
             </div>
             <div class="modal-footer">
+              <img id = "about_img" src="images/about.jpeg" /> 
               <button
+                id="close_footer"
                 type="button"
                 class="btn btn-default"
                 data-dismiss="modal"
@@ -179,7 +189,6 @@
       </div>
       <!-- GameDiv -->
       <div id="gameAndSettings">
-        <div id="gameDiv">
           <div id = "game_lables">
           <div id="currUser">
             <label for="lblUser">NAME: </label>
@@ -198,37 +207,57 @@
             <input id="lblLives" type="text" />
           </div>
         </div>
+        <div id="canvas_setting">
           <div id="game">
             <canvas id="canvas" height="600" width="600">
               <h1 id= "title"></h1>
             </canvas>
           </div>
-          <button id="newGameBtn">New Game</button>
           <!-- <audio id="sound"><source src="/sounds/theme.mp3" type="audio/wav">
           </audio> -->
-          <button id="playMusicBtn" onclick="play_music()">Play Music</button>
-          <button id="stopMusicBtn" onclick="stop_music()">Stop Music</button>
-        </div>
         <div id="showSettings">
-          <label>Up:</label>
-          <p id="upP"></p>
-          <label>Down:</label>
-          <p id="downP"></p>
-          <label>Right:</label>
-          <p id="rightP"></p>
-          <label>Left:</label>
-          <p id="leftP"></p>
-          <label>Number of Food:</label>
-          <p id="foodP"></p>
-          <label>Number of Monsters:</label>
-          <p id="monstersP"></p>
-          <label>Game Time:</label>
-          <p id="timeP"></p>
+          <h3 id="setting_head">&nbsp;Display Settings&nbsp;</h3>
+          <br />
+          <br />
+          <label class="setting_lable">Up:&nbsp</label>
+          <label id="upP"></label>
+          <br />
+          <br />
+          <label class="setting_lable">Down:&nbsp</label>
+          <label id="downP"></label>
+          <br />
+          <br />
+          <label class="setting_lable"> Right:&nbsp</label>
+          <label id="rightP"></label>
+          <br />
+          <br />
+          <label class="setting_lable">Left:&nbsp</label>
+          <label id="leftP"></label>
+          <br />
+          <br />
+          <label class="setting_lable">Number of Food:&nbsp</label>
+          <label id="foodP"></label>
+          <br />
+          <br />
+          <label class="setting_lable">Number of Monsters:&nbsp</label>
+          <label id="monstersP"></label>
+          <br />
+          <br />
+          <label class="setting_lable">Game Time:&nbsp</label>
+          <label id="timeP"></label>
         </div>
+      </div>
+      <br />
+          <br />
+        <button id="playMusicBtn" onclick="play_music()">Play Music</button>
+        <button id="stopMusicBtn" onclick="stop_music()">Stop Music</button>
+        <button id="newGameBtn">New Game</button>
       </div>
     </div>
 
-    <div id="footer"></div>
+    <div id="footer">
+      <small>Copyright &copy; noable@post.bgu.ac.il &middot; goldkbar@post.bgu.ac.il</small>
+    </div>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/additional-methods.min.js"></script>
   </body>

@@ -317,9 +317,6 @@ h2{
               0 0 200px #ffff46;
    -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
 }
-#gameDiv{
-  padding-left: 15px;
-}
 #game_lables{
   display: flex;
   padding-left: 15px;
@@ -345,9 +342,96 @@ canvas{
   border: 5px double #1919ff;
   background: black;
 }
+#canvas_setting{
+  display: inline-block;
+  width: -moz-max-content;
+}
+#game{
+  float: left;
+}
 #showSettings{
-  position: absolute;
-  left: 70%;
-  width: 200px;
-  top: 160px;
+  float: right;
+  vertical-align: top;
+  padding-left: 40px;
+  color: #ffff46ce;;
+  font-size: 15px;
+  text-align: center;
+}
+#setting_head{
+  color: rgb(186, 186, 186);
+  text-decoration: overline;
+  text-decoration-color: #ffff46;;
+  font-family: 'Press Start 2P', cursive;
+}
+.setting_lable{
+  color: rgb(186, 186, 186);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 13px;
+}
+#footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /* border-top: 0.5px solid #302e2e54; */
+  background-color: black;
+  text-align: center;
+  color: #7e7e7ea4;
+}
+span{
+  font-weight: bold;
+}
+h4{
+  font-weight: bold;
+  color: #ffff46;;
+  /* margin-top: 6%; */
+  padding-top: 3%;
+}
+.modal-body{
+  font-size: 15px;
+  color: rgba(224, 224, 224, 0.721);
+}
+#about_img{
+  width: 180px;
+  height:50px ;
+  float: left;
+  margin-top: 7%;
+}
+.modal-content{
+  background: black;
+  border: 2px solid #7e7e7ea4;
+}
+#close_btn{
+  background-image: url(/images/close_btn.png) no-repeat;
+  background-color: transparent;
+  color: white;
+}
+#close_btn:hover{
+  background-color: rgba(0, 0, 0, 0.062);
+}
+#close_footer{
+  padding: 10px 18px;
+  text-align: center;
+  background-color: #000;
+  color:#ffff46 ;
+  border: 2px solid #ffff46;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  font-family: 'Press Start 2P', cursive;
+  margin: 40px 0;
+  margin-right: 50px;
+
+}
+
+#close_footer:hover{
+  background: #ffff46;
+  border-radius: 5px;
+  color: #050801;
+  border: #ffff46;
+  box-shadow: 0 0 5px #ffff46,
+              0 0 25px #ffff46,
+              0 0 50px #ffff46,
+              0 0 200px #ffff46;
+   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
 }
