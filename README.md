@@ -31,8 +31,3 @@ This is a classic Pac-Man game developed using HTML5 canvas and JavaScript. The 
 - CSS3
 - JavaScript
 - jQuery
-
-## Credits
-
-- Developed by [Your Name]
-- Music and Sound Effects from [Source]
